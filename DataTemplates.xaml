@@ -18,4 +18,7 @@
     <DataTemplate DataType="{x:Type vm:WeatherViewModel}">
         <v:WeatherView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:CitiesViewModel}">
+        <v:CitiesView/>
+    </DataTemplate>
 </ResourceDictionary>

@@ -17,8 +17,8 @@ namespace TravelApp.ViewModels
         private string userNick = "root";
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
-        private ViewModelBase back;
-        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+        //private ViewModelBase back;
+        //public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
         private readonly IMyNavigationService navigation;
 

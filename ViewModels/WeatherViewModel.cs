@@ -12,8 +12,8 @@ namespace TravelApp.ViewModels
 {
     class WeatherViewModel : ViewModelBase
     {
-        private ViewModelBase back;
-        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+        //private ViewModelBase back;
+        //public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
         private string city = "Moscow";
         public string City { get => city; set => Set(ref city, value); }
@@ -57,8 +57,6 @@ namespace TravelApp.ViewModels
             this.navigation = navigation;
 
             ViewWeather(City);
-
-
         }
 
         private RelayCommand _BackCommand;

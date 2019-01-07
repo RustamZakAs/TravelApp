@@ -17,6 +17,7 @@ namespace TravelApp
         private TripsViewModel        tripsViewModel;
         private RegistrationViewModel registrationViewModel;
         private WeatherViewModel      weatherViewModel;
+        private CitiesViewModel       citiesViewModel;
 
         private IMyNavigationService  myNavigationService;
 
@@ -30,12 +31,14 @@ namespace TravelApp
             tripsViewModel        = new TripsViewModel(myNavigationService);
             registrationViewModel = new RegistrationViewModel(myNavigationService);
             weatherViewModel      = new WeatherViewModel(myNavigationService);
+            citiesViewModel       = new CitiesViewModel(myNavigationService);
 
             myNavigationService.Register<LogInViewModel>(logInViewModel);
             myNavigationService.Register<MenyuViewModel>(menyuViewModel);
             myNavigationService.Register<TripsViewModel>(tripsViewModel);
             myNavigationService.Register<RegistrationViewModel>(registrationViewModel);
             myNavigationService.Register<WeatherViewModel>(weatherViewModel);
+            myNavigationService.Register<CitiesViewModel>(citiesViewModel);
 
             //myNavigationService.Register("LogIn", logInViewModel);
             //myNavigationService.Register("Menyu", menyuViewModel);
