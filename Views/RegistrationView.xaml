@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="TravelApp.Views.RegistrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TravelApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300">
+    <StackPanel>
+        <Label Content="Form of appeal:"/>
+        <Label Content="{Binding Test}"/>
+        <ComboBox x:Name="cbAppeal" SelectedValue="{Binding RegInfo.Appeal}">
+            <ComboBoxItem Content="Mr.–Mister(обращение к мужчине)"/>
+            <ComboBoxItem Content="Mrs.–Misses(обращение к замужней женщине)"/>
+            <ComboBoxItem Content="Miss–Miss(обращение к незамужней женщине)"/>
+            <ComboBoxItem Content="Ms–Mizz(обращение как к замужней, так и незамужней женщине)"/>
+        </ComboBox>
+        <Label Content="Name:"/>
+        <Label Content="{Binding Test}"/>
+        <TextBox FontSize="17" Background="Red" 
+                 Text="{Binding RegInfo.UserName, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Surname:"/>
+        <Label Content="{Binding Test}"/>
+        <TextBox FontSize="17" Background="Red" 
+                 Text="{Binding RegInfo.UserSurname, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Surname:"/>
+        <Label Content="{Binding Test}"/>
+        <DatePicker FontSize="17" Background="Red" 
+                    Text="{Binding RegInfo.UserBirdth, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Nick:"/>
+        <Label Content="{Binding Test}"/>
+        <TextBox FontSize="17" Background="Red" 
+                 Text="{Binding RegInfo.UserNick, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="E-mail:"/>
+        <Label Content="{Binding Test}"/>
+        <TextBox FontSize="17" Background="Red" 
+                 Text="{Binding RegInfo.UserEmail, UpdateSourceTrigger=PropertyChanged}"/>
+        <UniformGrid Columns="2" Rows="1">
+            <Button FontSize="14" Content="Save" Command="{Binding SaveCommand}"/>
+            <Button FontSize="14" Content="Back" Command="{Binding BackCommand}"/>
+        </UniformGrid>
+    </StackPanel>
+</UserControl>
