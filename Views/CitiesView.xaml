@@ -6,7 +6,54 @@
              xmlns:local="clr-namespace:TravelApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="400">
-    <Grid>
-            
-    </Grid>
+    <StackPanel>
+        <Label FontSize="30" VerticalAlignment="Center" 
+               HorizontalAlignment="Center" FontStyle="Italic" 
+               Foreground="#FF780909" FontWeight="Bold" Content="Cities"/>
+        <Label FontSize="30" VerticalAlignment="Center" 
+               HorizontalAlignment="Center" FontStyle="Italic" 
+               Foreground="#FF780909" FontWeight="Bold" Content="{Binding UserNick}"/>
+        <ListView x:Name="listView" ItemsSource="{Binding СityList}"
+                                    SelectedItem="{Binding Path=SelectedCity}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock FontSize="15" Text="Name: " />
+                        <TextBlock Text="{Binding name}" FontWeight="Bold" />
+                        <TextBlock Text=", " />
+                        <TextBlock Text="Country: " />
+                        <TextBlock Text="{Binding country}" FontWeight="Bold" />
+                        <TextBlock Text=" (" />
+                        <TextBlock Text="{Binding coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                        <TextBlock Text="{Binding coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                        <TextBlock Text=")" />
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="100" Header="Name"
+                                    DisplayMemberBinding="{Binding name}"  />
+                    <GridViewColumn Width="100" Header="Country"  
+                                    DisplayMemberBinding="{Binding country}" />
+                    <GridViewColumn Width="100" Header="Lat"
+                                    DisplayMemberBinding="{Binding coord.lat}" />
+                    <GridViewColumn Width="100" Header="Lon"
+                                    DisplayMemberBinding="{Binding coord.lon}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <UniformGrid DockPanel.Dock="Bottom">
+            <Button Content="Back" Command="{Binding BackCommand}"></Button>
+        </UniformGrid>
+    </StackPanel>
 </UserControl>

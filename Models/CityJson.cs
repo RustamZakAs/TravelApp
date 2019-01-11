@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TravelApp
 {
-    public class СityInfo
+    public class CityInfo
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -24,14 +24,14 @@ namespace TravelApp
 
     public class City
     {
-        public List<СityInfo> СityList { get; set; }
+        public List<CityInfo> СityList { get; set; }
         public City()
         {
             string url = @"C:\Users\User\source\repos\TravelApp\Resources\city.list.json";
             using (WebClient web = new WebClient())
             {
                 var json = web.DownloadString(url);
-                СityList = JsonConvert.DeserializeObject<List<СityInfo>>(json);
+                СityList = JsonConvert.DeserializeObject<List<CityInfo>>(json);
             }
         }
     }

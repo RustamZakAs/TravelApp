@@ -64,5 +64,17 @@ namespace TravelApp.ViewModels
                 }
                 ));
         }
+
+        private RelayCommand citiesCommand;
+        public RelayCommand CitiesCommand
+        {
+            get => citiesCommand ?? (citiesCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<CitiesViewModel>();
+                }
+                ));
+        }
+        
     }
 }

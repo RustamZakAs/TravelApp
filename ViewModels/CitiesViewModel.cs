@@ -14,6 +14,12 @@ namespace TravelApp.ViewModels
 {
     class CitiesViewModel : ViewModelBase
     {
+        private List<CityInfo> cityList;
+        public List<CityInfo> CityList { get => cityList; set => Set(ref cityList, value); }
+
+        private CityInfo selectedCity;
+        public CityInfo SelectedCity { get => selectedCity; set => Set(ref selectedCity, value); }
+
         private readonly IMyNavigationService navigation;
 
         public CitiesViewModel(IMyNavigationService navigation)
@@ -22,7 +28,19 @@ namespace TravelApp.ViewModels
             SQLiteDatabase _SQLiteDatabase = new SQLiteDatabase();
 
             City city = new City();
-            MessageBox.Show(city.СityList[0].name);
+            CityList = city.СityList;
+            MessageBox.Show(CityList[1].name);
+        }
+
+        private RelayCommand backCommand;
+        public RelayCommand BackCommand
+        {
+            get => backCommand ?? (backCommand = new RelayCommand(
+                 () =>
+                 {
+                     navigation.Navigate<MenyuViewModel>();
+                 }
+                 ));
         }
     }
 }
