@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TravelApp.Services;
 
 namespace TravelApp.ViewModels
@@ -76,6 +77,7 @@ namespace TravelApp.ViewModels
             get => _WeatherOkCommand ?? (_WeatherOkCommand = new RelayCommand(
                  () =>
                  {
+                     //if (City)
                      ViewWeather(City);
                  }
                  ));
@@ -84,7 +86,17 @@ namespace TravelApp.ViewModels
         void ViewWeather(string city)
         {
             Weather weatherInfo = new Weather();
-            var result = weatherInfo.GetWeather(city);
+            WeatherInfo.Root result = new WeatherInfo.Root();
+            try
+            {
+                result = weatherInfo.GetWeather(city);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("city not found");
+                return;
+            }
+            
 
             CityName = String.Format("{0}", result.name);
             Country = String.Format("{0}", result.sys.country);

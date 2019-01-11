@@ -180,7 +180,15 @@ namespace TravelApp
             if (true)
             using (WebClient web = new WebClient())
             {
-                string url = String.Format("https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&appid={1}", city, APIKey);
+                string url;
+                try
+                {
+                    url = String.Format("https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&appid={1}", city, APIKey);
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
 
                 var json = web.DownloadString(url);
 
@@ -192,12 +200,12 @@ namespace TravelApp
             }
             else
             {
-                SQLiteDatabase sqlite = new SQLiteDatabase();
-                sqlite.sqliteConn.Open();
+                //SQLiteDatabase sqlite = new SQLiteDatabase();
+                //sqlite.sqliteConn.Open();
 
 
                 
-                sqlite.sqliteConn.Close();
+                //sqlite.sqliteConn.Close();
             }
         }
 

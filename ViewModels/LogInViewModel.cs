@@ -47,7 +47,7 @@ namespace TravelApp.ViewModels
             get => registrationCommand ?? (registrationCommand = new RelayCommand(
                 () =>
                 {
-                    if (UserNick.Contains('@') && UserNick.Contains('.'))
+                    if (UserNick != null && (UserNick.Contains('@') && UserNick.Contains('.')))
                         Messenger.Default.Send(new RegistrationMessage { UserEmail = UserNick });
                     else
                         Messenger.Default.Send(new RegistrationMessage { UserNick = UserNick });

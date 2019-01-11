@@ -60,11 +60,11 @@ namespace TravelApp.ViewModels
                  ));
         }
 
-        private RelayCommand saveCommand;
-        public RelayCommand SaveCommand
+        private MyRelayCommand saveCommand;
+        public MyRelayCommand SaveCommand
         {
-            get => saveCommand ?? (saveCommand = new RelayCommand(
-                 () =>
+            get => saveCommand ?? (saveCommand = new MyRelayCommand(
+                 param =>
                  {
                      SQLiteDatabase sqld = new SQLiteDatabase();
                      sqld.sqliteConn.Open();
@@ -118,8 +118,12 @@ namespace TravelApp.ViewModels
                      //db.SaveChanges();
 
                      navigation.Navigate<LogInViewModel>();
-                 }/*,
-                 () => !String.IsNullOrWhiteSpace(RegInfo.UserName)*/
+                 },
+                 param => !String.IsNullOrWhiteSpace(RegInfo.UserName),
+                 param => !String.IsNullOrWhiteSpace(RegInfo.UserNick),
+                 param => !String.IsNullOrWhiteSpace(RegInfo.UserEmail),
+                 param => !String.IsNullOrWhiteSpace(RegInfo.UserSurname),
+                 param => !String.IsNullOrWhiteSpace(RegInfo.UserBirdth)
                  ));
         }
     }
