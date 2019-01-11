@@ -14,7 +14,7 @@ namespace TravelApp.ViewModels
 {
     class LogInViewModel : ViewModelBase
     {
-        private string userNick = "root";
+        private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
         //private ViewModelBase back;

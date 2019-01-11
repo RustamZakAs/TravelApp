@@ -19,6 +19,9 @@
             <Button Command="{Binding TripsCommand}">
                 <Image Source="/TravelApp;component/Resources/trips.png"></Image>
             </Button>
+            <Button Command="{Binding TripsCommand}">
+                <Image Source="/TravelApp;component/Resources/cityes.png"></Image>
+            </Button>
         </UniformGrid>
         <UniformGrid>
             <Button Content="Back" Command="{Binding BackCommand}"></Button>

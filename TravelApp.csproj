@@ -142,8 +142,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\CitiesViewxaml.xaml.cs">
-      <DependentUpon>CitiesViewxaml.xaml</DependentUpon>
+    <Compile Include="Views\CitiesView.xaml.cs">
+      <DependentUpon>CitiesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LogInView.xaml.cs">
       <DependentUpon>LogInView.xaml</DependentUpon>
@@ -172,7 +172,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CitiesViewxaml.xaml">
+    <Page Include="Views\CitiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -234,7 +234,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\cityes.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\empty_user.png" />
   </ItemGroup>

@@ -25,20 +25,13 @@ namespace TravelApp
     public class City
     {
         public List<СityInfo> СityList { get; set; }
-
         public City()
         {
             string url = @"C:\Users\User\source\repos\TravelApp\Resources\city.list.json";
-
             using (WebClient web = new WebClient())
             {
                 var json = web.DownloadString(url);
-
-                var Object = JsonConvert.DeserializeObject<List<СityInfo>>(json);
-
-                List<СityInfo> outPut = Object;
-
-                СityList = outPut;
+                СityList = JsonConvert.DeserializeObject<List<СityInfo>>(json);
             }
         }
     }

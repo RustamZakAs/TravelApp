@@ -32,8 +32,7 @@ namespace TravelApp.ViewModels
                     UserNick = msg.UserNick;
                 });
 
-            //City city = new City();
-            //MessageBox.Show(city.СityList[0].name);
+            
         }
 
         private RelayCommand backCommand;
