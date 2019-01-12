@@ -16,6 +16,7 @@ using System.Text;
 using System;
 using TravelApp.Models;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace TravelApp.ViewModels
 {
@@ -28,6 +29,9 @@ namespace TravelApp.ViewModels
 
         private string test;
         public string Test { get => test; set => Set(ref test, value); }
+
+        private ObservableCollection<Appeal> appealList;
+        public ObservableCollection<Appeal> AppealList { get => appealList; set => Set(ref appealList, value); }
 
         private Registration _regInfo = new Registration();
         public Registration RegInfo { get => _regInfo; set => Set(ref _regInfo, value); }
@@ -47,6 +51,9 @@ namespace TravelApp.ViewModels
                 {
                     RegMessage.UserNick = msg.UserNick;
                 });
+
+            AppealList = new Appeal().getList();
+
         }
 
         private RelayCommand backCommand;
@@ -66,66 +73,63 @@ namespace TravelApp.ViewModels
             get => saveCommand ?? (saveCommand = new MyRelayCommand(
                  param =>
                  {
-                     MessageBox.Show(RegInfo.Appeal);
+                     SQLiteDatabase sqld = new SQLiteDatabase();
+                     sqld.sqliteConn.Open();
 
-        //             SQLiteDatabase sqld = new SQLiteDatabase();
-        //             sqld.sqliteConn.Open();
+                     string sql = "INSERT INTO Registration (UserName, UserSurname, UserBirdth, UserNick, Appeal, UserEmail) " +
+                     "                               VALUES (@UserName, @UserSurname, @UserBirdth, @UserNick, @Appeal, @UserEmail)";
+                     SQLiteCommand command = new SQLiteCommand(sql, sqld.sqliteConn);
 
-        //             string sql = "INSERT INTO Registration (UserName, UserSurname, UserBirdth, UserNick, Appeal, UserEmail) " +
-        //             "                               VALUES (@UserName, @UserSurname, @UserBirdth, @UserNick, @Appeal, @UserEmail)";
-        //             SQLiteCommand command = new SQLiteCommand(sql, sqld.sqliteConn);
+                     SQLiteParameter sqliteparam = new SQLiteParameter();
+                     sqliteparam.ParameterName = "@UserName";
+                     sqliteparam.Value = RegInfo.UserName;
 
-        //             SQLiteParameter sqliteparam = new SQLiteParameter();
-        //             sqliteparam.ParameterName = "@UserName";
-        //             sqliteparam.Value = RegInfo.UserName;
+                     command.Parameters.Add(sqliteparam);
 
-        //             command.Parameters.Add(sqliteparam);
+                     sqliteparam = new SQLiteParameter();
+                     sqliteparam.ParameterName = "@UserSurname";
+                     sqliteparam.Value = RegInfo.UserSurname;
 
-        //             sqliteparam = new SQLiteParameter();
-        //             sqliteparam.ParameterName = "@UserSurname";
-        //             sqliteparam.Value = RegInfo.UserSurname;
+                     command.Parameters.Add(sqliteparam);
 
-        //             command.Parameters.Add(sqliteparam);
+                     sqliteparam = new SQLiteParameter();
+                     sqliteparam.ParameterName = "@UserBirdth";
+                     sqliteparam.Value = RegInfo.UserBirdth.ToString("dd.MM.yyyy");
 
-        //             sqliteparam = new SQLiteParameter();
-        //             sqliteparam.ParameterName = "@UserBirdth";
-        //             sqliteparam.Value = RegInfo.UserBirdth.ToString("dd.MM.yyyy");
+                     command.Parameters.Add(sqliteparam);
 
-        //             command.Parameters.Add(sqliteparam);
+                     sqliteparam = new SQLiteParameter();
+                     sqliteparam.ParameterName = "@UserNick";
+                     sqliteparam.Value = RegInfo.UserNick;
 
-        //             sqliteparam = new SQLiteParameter();
-        //             sqliteparam.ParameterName = "@UserNick";
-        //             sqliteparam.Value = RegInfo.UserNick;
+                     command.Parameters.Add(sqliteparam);
 
-        //             command.Parameters.Add(sqliteparam);
+                     sqliteparam = new SQLiteParameter();
+                     sqliteparam.ParameterName = "@Appeal";
+                     //sqliteparam.Value = RegInfo.Appeal;
+                     //MessageBox.Show(RegInfo.Appeal);
+                     sqliteparam.Value = RegInfo.Appeal.ToString().Substring(0, RegInfo.Appeal.ToString().IndexOf('–'));
 
-        //             sqliteparam = new SQLiteParameter();
-        //             sqliteparam.ParameterName = "@Appeal";
-        //             //sqliteparam.Value = RegInfo.Appeal;
-        //             //MessageBox.Show(RegInfo.Appeal);
-        //             sqliteparam.Value = RegInfo.Appeal.Substring(0, RegInfo.Appeal.IndexOf('–'));
+                     command.Parameters.Add(sqliteparam);
 
-        //             command.Parameters.Add(sqliteparam);
+                     sqliteparam = new SQLiteParameter();
+                     sqliteparam.ParameterName = "@UserEmail";
+                     sqliteparam.Value = RegInfo.UserEmail;
 
-        //             sqliteparam = new SQLiteParameter();
-        //             sqliteparam.ParameterName = "@UserEmail";
-        //             sqliteparam.Value = RegInfo.UserEmail;
+                     command.Parameters.Add(sqliteparam);
 
-        //             command.Parameters.Add(sqliteparam);
+                     command.ExecuteNonQuery();
 
-        //             command.ExecuteNonQuery();
+                     sqld.sqliteConn.Close();
+                     //db.DSRegistration.Add(RegInfo);
+                     //db.SaveChanges();
 
-        //             sqld.sqliteConn.Close();
-        //             //db.DSRegistration.Add(RegInfo);
-        //             //db.SaveChanges();
-
-        //             navigation.Navigate<LogInViewModel>();
+                     navigation.Navigate<LogInViewModel>();
                  },
-                 param => !String.IsNullOrWhiteSpace(RegInfo.UserNick)/*,
-        //         param => !String.IsNullOrWhiteSpace(RegInfo.UserName),
-        //         param => !String.IsNullOrWhiteSpace(RegInfo.UserEmail),
-        //         param => !String.IsNullOrWhiteSpace(RegInfo.UserSurname),
-        //         param => !String.IsNullOrWhiteSpace(RegInfo.UserBirdth)*/
+                 param => (!String.IsNullOrWhiteSpace(RegInfo.UserNick) ||
+                           !String.IsNullOrWhiteSpace(RegInfo.UserName) ||
+                           !String.IsNullOrWhiteSpace(RegInfo.UserEmail) ||
+                           !String.IsNullOrWhiteSpace(RegInfo.UserSurname))
                  ));
         }
     }

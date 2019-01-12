@@ -14,8 +14,8 @@
                HorizontalAlignment="Center" FontStyle="Italic" 
                Foreground="#FF780909" FontWeight="Bold" Content="{Binding UserNick}"/>
         <ListBox x:Name="listView" ItemsSource="{Binding CityList}"
-                                    SelectedItem="{Binding Path=SelectedCity}" Height="1000">
-            <!--<ListView.ItemContainerStyle>
+                                    SelectedItem="{Binding Path=SelectedCity}" Height="350">
+            <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
@@ -23,23 +23,24 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
+            </ListBox.ItemContainerStyle>-->
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <TextBlock FontSize="15" Text="Name: " />
+                        <TextBlock Text="Name: " />
                         <TextBlock Text="{Binding name}" FontWeight="Bold" />
                         <TextBlock Text=", " />
                         <TextBlock Text="Country: " />
                         <TextBlock Text="{Binding country}" FontWeight="Bold" />
                         <TextBlock Text=" (" />
                         <TextBlock Text="{Binding coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                        <TextBlock Text=" ; "></TextBlock>
                         <TextBlock Text="{Binding coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
                         <TextBlock Text=")" />
                     </WrapPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.View>
+            </ListBox.ItemTemplate>
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn Width="100" Header="Name"
                                     DisplayMemberBinding="{Binding name}"  />

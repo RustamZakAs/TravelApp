@@ -9,12 +9,10 @@
     <StackPanel>
         <Label Content="Form of appeal:"/>
         <Label Content="{Binding Test}"/>
-        <ComboBox x:Name="cbAppeal"  SelectedValue="{Binding RegInfo.Appeal}">
-            <ComboBoxItem Content="Mr.–Mister(обращение к мужчине)"/>
-            <ComboBoxItem Content="Mrs.–Misses(обращение к замужней женщине)"/>
-            <ComboBoxItem Content="Miss–Miss(обращение к незамужней женщине)"/>
-            <ComboBoxItem Content="Ms–Mizz(обращение как к замужней, так и незамужней женщине)"/>
-        </ComboBox>
+        <ComboBox x:Name="cbAppeal" 
+                  ItemsSource="{Binding Path=AppealList}" 
+                  DisplayMemberPath="appeal"
+                  SelectedValue="{Binding RegInfo.Appeal}"/>
         <Label Content="Name:"/>
         <Label Content="{Binding Test}"/>
         <TextBox FontSize="17" Background="Red" 

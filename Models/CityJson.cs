@@ -25,15 +25,15 @@ namespace TravelApp
 
     public class City
     {
-        public ObservableCollection<CityInfo> СityList { get; set; }
+        public ObservableCollection<CityInfo> CityList { get; set; }
         public City()
         {
-            //string url = @"..\Resources\city.list.json";
-            string url = @"C:\Users\Zaka_oz49\source\repos\TravelApp\bin\Debug\Resources\city.list.json";
+            string url = @"C:\Users\User\source\repos\TravelApp\bin\Debug\Resources\city.list.json";
+            //string url = @"C:\Users\Zaka_oz49\source\repos\TravelApp\bin\Debug\Resources\city.list.json";
             using (WebClient web = new WebClient())
             {
                 var json = web.DownloadString(url);
-                СityList = JsonConvert.DeserializeObject<ObservableCollection<CityInfo>>(json);
+                CityList = JsonConvert.DeserializeObject<ObservableCollection<CityInfo>>(json);
             }
         }
     }

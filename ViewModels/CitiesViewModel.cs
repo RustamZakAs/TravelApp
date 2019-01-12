@@ -26,10 +26,10 @@ namespace TravelApp.ViewModels
         public CitiesViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
-            //SQLiteDatabase _SQLiteDatabase = new SQLiteDatabase();
+            SQLiteDatabase _SQLiteDatabase = new SQLiteDatabase();
 
             City city = new City();
-            CityList = city.СityList;
+            CityList = city.CityList;
             MessageBox.Show(CityList[1].name);
         }
 

@@ -200,12 +200,10 @@ namespace TravelApp
             }
             else
             {
-                //SQLiteDatabase sqlite = new SQLiteDatabase();
-                //sqlite.sqliteConn.Open();
+                SQLiteDatabase sqlite = new SQLiteDatabase();
+                sqlite.sqliteConn.Open();
 
-
-                
-                //sqlite.sqliteConn.Close();
+                sqlite.sqliteConn.Close();
             }
         }
 
@@ -215,13 +213,20 @@ namespace TravelApp
 
             using (WebClient web = new WebClient())
             {
-                var json = web.DownloadString(url);
+                try
+                {
+                    string json = web.DownloadString(url);
 
-                var Object = JsonConvert.DeserializeObject<weatherForcast.Root>(json);
+                    var Object = JsonConvert.DeserializeObject<weatherForcast.Root>(json);
 
-                weatherForcast.Root outPut = Object;
+                    weatherForcast.Root outPut = Object;
 
-                return outPut;
+                    return outPut;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             }
         }
     }

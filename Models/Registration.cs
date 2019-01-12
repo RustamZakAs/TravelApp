@@ -24,7 +24,7 @@ namespace TravelApp.Models
     {
         public Registration()
         {
-            UserBirdth = DateTime.Parse(DateTime.Today.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
+            UserBirdth = DateTime.Parse(DateTime.Today.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture));
         }
 
         [Key]
@@ -47,8 +47,8 @@ namespace TravelApp.Models
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
         [MaxLength(30)]
-        private string appeal;
-        public string Appeal { get => appeal; set => Set(ref appeal, value); }
+        private Appeal appeal;
+        public Appeal Appeal { get => appeal; set => Set(ref appeal, value); }
 
         [EmailAddress]
         private string userEmail;

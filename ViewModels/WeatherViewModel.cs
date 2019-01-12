@@ -103,7 +103,7 @@ namespace TravelApp.ViewModels
             Temp = String.Format("{0} °С", result.main.temp); //°F  °С  ℃
             Image = String.Format("http://openweathermap.org/img/w/{0}.png", result.weather[0].icon);
 
-            var Object = weatherInfo.GetForcast(city);
+            var Object = weatherInfo.GetForcast(city) ?? new weatherForcast.Root();
 
             Condition = String.Format("{0}", Object.list[0].weather[0].main);
             Discription = String.Format("{0}", Object.list[0].weather[0].description);
