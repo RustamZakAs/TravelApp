@@ -13,7 +13,7 @@ namespace TravelApp
     class WeatherInfo
     {
         [InverseProperty("WeatherInfo")]
-        public virtual ICollection<WeatherInfo> WeatherInfo { get; set; }
+        public virtual ICollection<WeatherInfo> _WeatherInfo { get; set; }
 
         public class coord
         {
@@ -64,7 +64,7 @@ namespace TravelApp
     class weatherForcast
     {
         [InverseProperty("weatherForcast")]
-        public virtual ICollection<weatherForcast> weatherForcast { get; set; }
+        public virtual ICollection<weatherForcast> _weatherForcast { get; set; }
 
         public class Root
         {
