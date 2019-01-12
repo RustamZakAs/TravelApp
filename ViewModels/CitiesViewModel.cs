@@ -21,6 +21,9 @@ namespace TravelApp.ViewModels
         private CityInfo selectedCity;
         public CityInfo SelectedCity { get => selectedCity; set => Set(ref selectedCity, value); }
 
+        private string imagePath;
+        public string ImagePath { get => imagePath; set => Set(ref imagePath, value); }
+
         private readonly IMyNavigationService navigation;
 
         public CitiesViewModel(IMyNavigationService navigation)

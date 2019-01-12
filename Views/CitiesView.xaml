@@ -26,18 +26,21 @@
             </ListBox.ItemContainerStyle>-->
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <WrapPanel>
-                        <TextBlock Text="Name: " />
-                        <TextBlock Text="{Binding name}" FontWeight="Bold" />
-                        <TextBlock Text=", " />
-                        <TextBlock Text="Country: " />
-                        <TextBlock Text="{Binding country}" FontWeight="Bold" />
-                        <TextBlock Text=" (" />
-                        <TextBlock Text="{Binding coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                        <TextBlock Text=" ; "></TextBlock>
-                        <TextBlock Text="{Binding coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                        <TextBlock Text=")" />
-                    </WrapPanel>
+                    <DockPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Name: " />
+                            <TextBlock Text="{Binding name}" FontWeight="Bold" />
+                            <TextBlock Text=", " />
+                            <TextBlock Text="Country: " />
+                            <TextBlock Text="{Binding country}" FontWeight="Bold" />
+                            <TextBlock Text=" (" />
+                            <TextBlock Text="{Binding coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                            <TextBlock Text=" ; "></TextBlock>
+                            <TextBlock Text="{Binding coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                            <TextBlock Text=")" />
+                        </WrapPanel>
+                        <Image Height="50" Source="{Binding ImagePath}"></Image>
+                    </DockPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
             <!--<ListView.View>

@@ -1,16 +1,20 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using Newtonsoft.Json;
+using System.Linq;
+using System.Text;
+using System.Net;
+using System;
 
 namespace TravelApp
 {
     class WeatherInfo
     {
+        [InverseProperty("WeatherInfo")]
+        public virtual ICollection<WeatherInfo> WeatherInfo { get; set; }
+
         public class coord
         {
             public double lat { get; set; }
@@ -59,6 +63,9 @@ namespace TravelApp
 
     class weatherForcast
     {
+        [InverseProperty("weatherForcast")]
+        public virtual ICollection<weatherForcast> weatherForcast { get; set; }
+
         public class Root
         {
             public int cod { get; set; }
