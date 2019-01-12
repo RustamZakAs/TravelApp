@@ -26,7 +26,7 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
 
-            SQLiteDatabase _SQLiteDatabase = new SQLiteDatabase();
+            //SQLiteDatabase _SQLiteDatabase = new SQLiteDatabase();
         }
 
         private RelayCommand sendCommand;

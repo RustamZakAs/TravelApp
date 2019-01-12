@@ -30,24 +30,29 @@
         <ImageBrush ImageSource="/TravelApp;component/Resources/night_weather.jpg" 
                     Stretch="UniformToFill"/>
     </UserControl.Background>
-    <StackPanel HorizontalAlignment="Center" 
+    <DockPanel HorizontalAlignment="Center" 
                 VerticalAlignment="Center">
-        <TextBox Text="{Binding City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox DockPanel.Dock="Top" Text="{Binding City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding Path=WeatherOkCommand}" Key="Enter" />
             </TextBox.InputBindings>
         </TextBox>
-        <Button Content="OK" Command="{Binding WeatherOkCommand}"/>
-        <DockPanel>
+        <Button DockPanel.Dock="Top" Content="OK" Command="{Binding WeatherOkCommand}"/>
+        <UniformGrid DockPanel.Dock="Bottom">
+            <Button Content="Back" 
+                    Command="{Binding BackCommand}"></Button>
+        </UniformGrid>
+        <DockPanel DockPanel.Dock="Top">
             <Image DockPanel.Dock="Left" Height="100" 
-                   Source="{Binding Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                           Source="{Binding Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <StackPanel DockPanel.Dock="Right">
                 <Label FontSize="10" Foreground="Red" 
-                       Content="{Binding CityName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                               Content="{Binding CityName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label FontSize="10" Foreground="Red" 
-                       Content="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                               Content="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label FontSize="10" Foreground="Red" 
-                       Content="{Binding Temp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                               Content="{Binding Temp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
             </StackPanel>
         </DockPanel>
         <!--<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
@@ -67,9 +72,5 @@
             ItemTemplate="{StaticResource weatherItem}"
             ItemsSource="{Binding WeatherList}" Background="{x:Null}" BorderBrush="{x:Null}">
         </ListBox>
-        <UniformGrid>
-            <Button Content="Back" 
-                    Command="{Binding BackCommand}"></Button>
-        </UniformGrid>
-    </StackPanel>
+    </DockPanel>
 </UserControl>

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -24,14 +25,15 @@ namespace TravelApp
 
     public class City
     {
-        public List<CityInfo> СityList { get; set; }
+        public ObservableCollection<CityInfo> СityList { get; set; }
         public City()
         {
-            string url = @"C:\Users\User\source\repos\TravelApp\Resources\city.list.json";
+            //string url = @"..\Resources\city.list.json";
+            string url = @"C:\Users\Zaka_oz49\source\repos\TravelApp\bin\Debug\Resources\city.list.json";
             using (WebClient web = new WebClient())
             {
                 var json = web.DownloadString(url);
-                СityList = JsonConvert.DeserializeObject<List<CityInfo>>(json);
+                СityList = JsonConvert.DeserializeObject<ObservableCollection<CityInfo>>(json);
             }
         }
     }

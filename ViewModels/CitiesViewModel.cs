@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,8 @@ namespace TravelApp.ViewModels
 {
     class CitiesViewModel : ViewModelBase
     {
-        private List<CityInfo> cityList;
-        public List<CityInfo> CityList { get => cityList; set => Set(ref cityList, value); }
+        private ObservableCollection<CityInfo> cityList;
+        public ObservableCollection<CityInfo> CityList { get => cityList; set => Set(ref cityList, value); }
 
         private CityInfo selectedCity;
         public CityInfo SelectedCity { get => selectedCity; set => Set(ref selectedCity, value); }
@@ -25,7 +26,7 @@ namespace TravelApp.ViewModels
         public CitiesViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
-            SQLiteDatabase _SQLiteDatabase = new SQLiteDatabase();
+            //SQLiteDatabase _SQLiteDatabase = new SQLiteDatabase();
 
             City city = new City();
             CityList = city.СityList;
