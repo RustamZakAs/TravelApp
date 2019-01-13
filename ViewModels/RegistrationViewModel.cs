@@ -126,9 +126,9 @@ namespace TravelApp.ViewModels
 
                      navigation.Navigate<LogInViewModel>();
                  },
-                 param => (!String.IsNullOrWhiteSpace(RegInfo.UserNick) ||
-                           !String.IsNullOrWhiteSpace(RegInfo.UserName) ||
-                           !String.IsNullOrWhiteSpace(RegInfo.UserEmail) ||
+                 param => (!String.IsNullOrWhiteSpace(RegInfo.UserNick) &&
+                           !String.IsNullOrWhiteSpace(RegInfo.UserName) &&
+                           !String.IsNullOrWhiteSpace(RegInfo.UserEmail) &&
                            !String.IsNullOrWhiteSpace(RegInfo.UserSurname))
                  ));
         }

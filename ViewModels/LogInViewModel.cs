@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using TravelApp.Messages;
 using TravelApp.Services;
+using System.Media;
+using System.IO;
 
 namespace TravelApp.ViewModels
 {
@@ -37,6 +39,17 @@ namespace TravelApp.ViewModels
                 {
                     Messenger.Default.Send(new MenyuMessage { UserNick = UserNick });
                     navigation.Navigate<MenyuViewModel>();
+
+                    
+                    Task.Run(() =>
+                    {
+                        string file = @"C:\Users\User\source\repos\TravelApp\Resources\Sound_20015.wav";
+                        if (File.Exists(file))
+                        {
+                            SoundPlayer my_wave_file = new SoundPlayer(file);
+                            my_wave_file.PlaySync(); // PlaySync means that once sound start then no other activity if form will occur untill sound goes to finish
+                        }
+                    });
                 }
                 ));
         }
@@ -53,10 +66,10 @@ namespace TravelApp.ViewModels
                         Messenger.Default.Send(new RegistrationMessage { UserNick = UserNick });
 
                     navigation.Navigate<RegistrationViewModel>();
+
                 }
                 ));
         }
-        
 
         private RelayCommand closeCommand;
         public RelayCommand CloseCommand

@@ -207,10 +207,10 @@ namespace TravelApp
             }
             else
             {
-                SQLiteDatabase sqlite = new SQLiteDatabase();
-                sqlite.sqliteConn.Open();
+                //SQLiteDatabase sqlite = new SQLiteDatabase();
+                //sqlite.sqliteConn.Open();
 
-                sqlite.sqliteConn.Close();
+                //sqlite.sqliteConn.Close();
             }
         }
 

@@ -6,15 +6,71 @@
              xmlns:local="clr-namespace:TravelApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
-    <StackPanel>
-        <Label FontSize="30" VerticalAlignment="Center" 
+    <DockPanel>
+        <UniformGrid DockPanel.Dock="Top">
+            <Label FontSize="30" VerticalAlignment="Center" 
                HorizontalAlignment="Center" FontStyle="Italic" 
                Foreground="#FF780909" FontWeight="Bold" Content="Trips"/>
-        <Label FontSize="30" VerticalAlignment="Center" 
+            <Label FontSize="30" VerticalAlignment="Center" 
                HorizontalAlignment="Center" FontStyle="Italic" 
                Foreground="#FF780909" FontWeight="Bold" Content="{Binding UserNick}"/>
-        <UniformGrid>
+        </UniformGrid>
+        <UniformGrid DockPanel.Dock="Bottom">
             <Button Content="Back" Command="{Binding BackCommand}"></Button>
         </UniformGrid>
-    </StackPanel>
+        <UniformGrid Columns="1" Rows="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="72"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Grid.Row="0" 
+                        VerticalAlignment="Top" Height="70" 
+                        Command="{Binding AddCommand}" 
+                        Content="/TravelApp;component/Resources/Plus-297823_640.png" 
+                        Style="{DynamicResource SuperBarButtonStyle}"/>
+                <Button Grid.Column="1" Grid.Row="0" 
+                        VerticalAlignment="Top" Height="70" 
+                        Command="{Binding RemoveCommand}" 
+                        Content="/TravelApp;component/Resources/remove-151678_960_720.png" 
+                        Style="{DynamicResource SuperBarButtonStyle}"/>
+                <Button Grid.Column="2" Grid.Row="0" 
+                        VerticalAlignment="Top" Height="70" 
+                        Command="{Binding OkCommand}" 
+                        Content="/TravelApp;component/Resources/Ok-PNG-File.png" 
+                        Style="{DynamicResource SuperBarButtonStyle}"/>
+                <ListBox Grid.Column="0" Grid.Row="1" 
+                         Grid.ColumnSpan="3" Grid.RowSpan="2"
+                         ItemsSource="{Binding TripList}"
+                         SelectedItem="{Binding Path=SelectedTrip}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="Name: " />
+                                    <TextBlock Text="{Binding name}" FontWeight="Bold" />
+                                    <TextBlock Text=", " />
+                                    <TextBlock Text="Country: " />
+                                    <TextBlock Text="{Binding CityInfo.name}" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding CityInfo.country}" FontWeight="Bold" />
+                                    <TextBlock Text=" (" />
+                                    <TextBlock Text="{Binding CityInfo.coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                    <TextBlock Text=" ; "></TextBlock>
+                                    <TextBlock Text="{Binding CityInfo.coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                    <TextBlock Text=")" />
+                                </WrapPanel>
+                                <Image Height="50" Source="{Binding CityImage}"></Image>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </UniformGrid>
+    </DockPanel>
 </UserControl>

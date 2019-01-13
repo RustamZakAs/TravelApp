@@ -36,6 +36,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>mapsmelogo_to2_8.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
       <HintPath>packages\AForge.2.2.5\lib\AForge.dll</HintPath>
@@ -342,6 +345,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Trip.cs" />
+    <Compile Include="Styles\CustomizedWindow\VS2012WindowStyle.cs" />
+    <Compile Include="Styles\IconButton\ControlExtender.cs" />
+    <Compile Include="Styles\IconButton\ImageToColorConverter.cs" />
     <Compile Include="Models\Appeal.cs" />
     <Compile Include="Models\CityJson.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
@@ -351,6 +358,7 @@
     <Compile Include="Messages\MenyuMessage.cs" />
     <Compile Include="Messages\RegistrationMessage.cs" />
     <Compile Include="Messages\TripsMessage.cs" />
+    <Compile Include="Styles\IconButton\MousePositionToColorOffsetConverter.cs" />
     <Compile Include="Services\IMyNavigationService.cs" />
     <Compile Include="Services\MyNavigationService.cs" />
     <Compile Include="Models\SQLiteDatabase.cs" />
@@ -395,6 +403,22 @@
     <Page Include="DataTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\BlueButton\BlueButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\BlueButton\ButtonStackPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\CustomizedWindow\VS2012WindowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\IconButton\SuperBarButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AppView.xaml">
       <SubType>Designer</SubType>
@@ -480,8 +504,17 @@
     <Resource Include="Resources\night_weather.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Styles\" />
+    <Resource Include="mapsmelogo_to2_8.ico" />
+    <Content Include="Resources\Sound_20015.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ok-PNG-File.png" />
+    <Resource Include="Resources\Plus-297823_640.png" />
+    <Resource Include="Resources\remove-151678_960_720.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

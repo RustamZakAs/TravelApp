@@ -6,16 +6,31 @@
         xmlns:local="clr-namespace:TravelApp.Views"
         xmlns:vm="clr-namespace:TravelApp.ViewModels"
         mc:Ignorable="d"
-        Title="AppView" Height="450" Width="300">
+        Style="{StaticResource VS2012WindowStyle}"
+        Title="AppView" Height="500" Width="333" Icon="/TravelApp;component/mapsmelogo_to2_8.ico">
     <Window.Resources>
         <ResourceDictionary Source="../DataTemplates.xaml"/>
     </Window.Resources>
-    <DockPanel>
+    <DockPanel Margin="0,7,0,0"
+                   Background="Transparent"
+                   ScrollViewer.CanContentScroll="True" 
+                   ScrollViewer.VerticalScrollBarVisibility="Auto"
+                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
         <!--<UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
             <Button Content="LogIn" Command="{Binding NavigateCommand}" CommandParameter="{x:Type vm:LogInViewModel}"></Button>
             <Button Content="Menyu" Command="{Binding NavigateCommand}" CommandParameter="{x:Type vm:MenyuViewModel}"></Button>
             <Button Content="Trips" Command="{Binding NavigateCommand}" CommandParameter="{x:Type vm:TripsViewModel}"></Button>
         </UniformGrid>-->
-        <ContentControl Content="{Binding CurrentPage}"/>
+        <DockPanel>
+            <StatusBar DockPanel.Dock="Bottom" Height="30" HorizontalAlignment="Stretch">
+                <DockPanel DockPanel.Dock="Left">
+                    <TextBlock Margin="3,0,0,0" Text=""/>
+                </DockPanel>
+                <StatusBarItem DockPanel.Dock="Right" HorizontalAlignment="Right">
+                    <ResizeGrip Opacity="0.75"/>
+                </StatusBarItem>
+            </StatusBar>
+            <ContentControl Content="{Binding CurrentPage}"/>
+        </DockPanel>
     </DockPanel>
 </Window>

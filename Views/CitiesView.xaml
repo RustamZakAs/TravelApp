@@ -13,8 +13,9 @@
         <Label FontSize="30" VerticalAlignment="Center" 
                HorizontalAlignment="Center" FontStyle="Italic" 
                Foreground="#FF780909" FontWeight="Bold" Content="{Binding UserNick}"/>
-        <ListBox x:Name="listView" ItemsSource="{Binding CityList}"
-                                    SelectedItem="{Binding Path=SelectedCity}" Height="350">
+        <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <ListBox x:Name="listView" ItemsSource="{Binding SearchCityList}"
+                                   SelectedItem="{Binding Path=SelectedCity}" Height="350">
             <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Style.Triggers>

@@ -8,11 +8,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
     <UserControl.Background>
-        <ImageBrush ImageSource="/TravelApp;component/Resources/travel_background.jpg" Stretch="UniformToFill"/>
+        <ImageBrush ImageSource="/TravelApp;component/Resources/travel_background.jpg" 
+                    Stretch="UniformToFill"/>
     </UserControl.Background>
     <StackPanel HorizontalAlignment="Center" 
                 VerticalAlignment="Center">
-        <Image Source="/TravelApp;component/Resources/empty_user.png" Width="250" Height="250"/>
+        <Image Source="/TravelApp;component/Resources/empty_user.png" 
+               Width="250" Height="250"/>
         <Label Content="User Nick or E-mail:" Background="Azure"/>
         <TextBox Background="Red" FontSize="20" Text="{Binding UserNick}"/>
         <UniformGrid Columns="2" Rows="1">
@@ -21,9 +23,15 @@
         </UniformGrid>
         <TextBox Background="Red" FontSize="20"/>
         <UniformGrid Columns="3" Rows="1">
-            <Button FontSize="14" Content="OK" Command="{Binding SendCommand}" CommandParameter="Menyu"/>
-            <Button FontSize="14" Content="Registration" Command="{Binding RegistrationCommand}" CommandParameter="{x:Type vm:RegistrationViewModel}"/>
-            <Button FontSize="14" Content="Close" Command="{Binding CloseCommand}" CommandParameter="Close"/>
+            <Button FontSize="14" Content="OK" 
+                    Command="{Binding SendCommand}" 
+                    CommandParameter="Menyu"/>
+            <Button FontSize="14" Content="Registration" 
+                    Command="{Binding RegistrationCommand}" 
+                    CommandParameter="{x:Type vm:RegistrationViewModel}"/>
+            <Button FontSize="14" Content="Close" 
+                    Command="{Binding CloseCommand}" 
+                    CommandParameter="Close"/>
         </UniformGrid>
     </StackPanel>
 </UserControl>
