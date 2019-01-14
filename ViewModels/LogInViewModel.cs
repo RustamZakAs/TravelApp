@@ -40,14 +40,14 @@ namespace TravelApp.ViewModels
                     Messenger.Default.Send(new MenyuMessage { UserNick = UserNick });
                     navigation.Navigate<MenyuViewModel>();
 
-                    
                     Task.Run(() =>
                     {
-                        string file = @"C:\Users\User\source\repos\TravelApp\Resources\Sound_20015.wav";
-                        if (File.Exists(file))
+                        string file = @"\Resources\Sound_20015.wav";
+                        var directory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                        if (File.Exists(directory + file))
                         {
-                            SoundPlayer my_wave_file = new SoundPlayer(file);
-                            my_wave_file.PlaySync(); // PlaySync means that once sound start then no other activity if form will occur untill sound goes to finish
+                            SoundPlayer my_wave_file = new SoundPlayer(directory + file);
+                            my_wave_file.PlaySync(); //PlaySync means that once sound start then no other activity if form will occur untill sound goes to finish
                         }
                     });
                 }
@@ -78,6 +78,17 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     Environment.Exit(0);
+                }
+                ));
+        }
+
+        private RelayCommand forgotPassCommand;
+        public RelayCommand ForgotPassCommand
+        {
+            get => forgotPassCommand ?? (forgotPassCommand = new RelayCommand(
+                () =>
+                {
+                    MessageBox.Show("Не забывал бы! ");
                 }
                 ));
         }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -28,12 +29,15 @@ namespace TravelApp
         public ObservableCollection<CityInfo> CityList { get; set; }
         public City()
         {
-            string url = @"C:\Users\User\source\repos\TravelApp\bin\Debug\Resources\city.list.json";
-            //string url = @"C:\Users\Zaka_oz49\source\repos\TravelApp\bin\Debug\Resources\city.list.json";
-            using (WebClient web = new WebClient())
+            string file = @"\Resources\city.list.json";
+            var directory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (File.Exists(directory + file))
             {
-                var json = web.DownloadString(url);
-                CityList = JsonConvert.DeserializeObject<ObservableCollection<CityInfo>>(json);
+                using (WebClient web = new WebClient())
+                {
+                    var json = web.DownloadString(directory + file);
+                    CityList = JsonConvert.DeserializeObject<ObservableCollection<CityInfo>>(json);
+                }
             }
         }
     }

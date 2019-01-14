@@ -19,7 +19,16 @@
         <TextBox Background="Red" FontSize="20" Text="{Binding UserNick}"/>
         <UniformGrid Columns="2" Rows="1">
             <Label Content="User Password:" Background="Azure"/>
-            <Label Content="Forgot your password?" Background="Azure"/>
+            <!--<TextBlock Text="Forgot your password?" Background="Azure">-->
+            <TextBlock Background="Azure" VerticalAlignment="Stretch"><Hyperlink>
+                    Forgot your password?
+                </Hyperlink>
+                <TextBlock.InputBindings>
+                    <MouseBinding Command="ForgotPassCommand" MouseAction="LeftClick"/>
+                </TextBlock.InputBindings>
+            </TextBlock>
+                <!--</TextBlock>-->
+            <!--<Label Content="Forgot your password?" Background="Azure"/>-->
         </UniformGrid>
         <TextBox Background="Red" FontSize="20"/>
         <UniformGrid Columns="3" Rows="1">

@@ -19,7 +19,6 @@ namespace TravelApp.ViewModels
         private string city = "Moscow";
         public string City { get => city; set => Set(ref city, value); }
 
-
         private string cityName;
         public string CityName { get => cityName; set => Set(ref cityName, value); }
 
@@ -31,7 +30,6 @@ namespace TravelApp.ViewModels
 
         private string image;
         public string Image { get => image; set => Set(ref image, value); }
-
 
         private string condition;
         public string Condition { get => condition; set => Set(ref condition, value); }
