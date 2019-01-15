@@ -346,6 +346,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Messages\CityMessage.cs" />
+    <Compile Include="Models\CityImage.cs" />
     <Compile Include="Models\Trip.cs" />
     <Compile Include="Styles\CustomizedWindow\VS2012WindowStyle.cs" />
     <Compile Include="Styles\IconButton\ControlExtender.cs" />

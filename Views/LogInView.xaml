@@ -24,7 +24,7 @@
                     Forgot your password?
                 </Hyperlink>
                 <TextBlock.InputBindings>
-                    <MouseBinding Command="ForgotPassCommand" MouseAction="LeftClick"/>
+                    <MouseBinding Command="{Binding ForgotPassCommand}" MouseAction="LeftClick"/>
                 </TextBlock.InputBindings>
             </TextBlock>
                 <!--</TextBlock>-->

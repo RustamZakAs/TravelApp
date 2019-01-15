@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TravelApp.Messages;
+using TravelApp.Models;
 using TravelApp.Services;
 
 namespace TravelApp.ViewModels
@@ -22,10 +23,35 @@ namespace TravelApp.ViewModels
         public ObservableCollection<CityInfo> SearchCityList { get => searchCityList; set => Set(ref searchCityList, value); }
 
         private CityInfo selectedCity;
-        public CityInfo SelectedCity { get => selectedCity; set => Set(ref selectedCity, value); }
+        public CityInfo SelectedCity
+        {
+            get => selectedCity;
+            set
+            {
+                Set(ref selectedCity, value);
 
-        private string imagePath;
+                if(value != null)
+                {
+                    string cityName = SelectedCity.name.ToLower();
+
+                    Task.Run(() =>
+                    {
+                        CityImage.Root images = cityImages.GetImages(cityName);
+                        if (images != null)
+                        {
+                            ImagePath = images.photos[0].image.mobile;
+                            selectedCity.imageMobile = ImagePath;
+                            selectedCity.imageWeb = images.photos[0].image.web;
+                        }
+                    });
+                }
+            }
+        }
+
+        private string imagePath = @"https://d13k13wj6adfdf.cloudfront.net/urban_areas/baku-0aa6019508.jpg";
         public string ImagePath { get => imagePath; set => Set(ref imagePath, value); }
+
+        public CityImage cityImages = new CityImage();
 
         private string searchText;
         public string SearchText
@@ -34,7 +60,7 @@ namespace TravelApp.ViewModels
             set
             {
                 Set(ref searchText, value);
-                SearchCityList = MySearch(CityList, value);
+                SearchCityList = MySearch(CityList, value, true);
             }
         }
 
@@ -48,18 +74,38 @@ namespace TravelApp.ViewModels
             City city = new City();
             SearchCityList = CityList = city.CityList;
             //MessageBox.Show(CityList[1].name);
-
         }
 
-        private ObservableCollection<CityInfo> MySearch(ObservableCollection<CityInfo> cities, string value)
+        private ObservableCollection<CityInfo> MySearch(ObservableCollection<CityInfo> cities, string value, bool isMany = false)
         {
             if (cities != null && cities.Count > 0)
             {
-                var linqResults = from city in cities
-                                  where city.country.Contains(value) ||
-                                  city.name.Contains(value)
-                                  select city;
-                return new ObservableCollection<CityInfo>(linqResults);
+                if (isMany)
+                {
+                    ObservableCollection<CityInfo> result = new ObservableCollection<CityInfo>();
+                    string[] words = value.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < words.Length; i++)
+                    {
+                        var linqResults = from city in cities
+                                          where city.country.Contains(words[i]) ||
+                                          city.name.Contains(words[i])
+                                          select city;
+
+                        foreach (var item in new ObservableCollection<CityInfo>(linqResults))
+                        {
+                            result.Add(item);
+                        }
+                    }
+                    return result;
+                }
+                else
+                {
+                    var linqResults = from city in cities
+                                      where city.country.Contains(value) ||
+                                      city.name.Contains(value)
+                                      select city;
+                    return new ObservableCollection<CityInfo>(linqResults);
+                }
             }
             else return cities;
         }
@@ -71,6 +117,18 @@ namespace TravelApp.ViewModels
                  () =>
                  {
                      navigation.Navigate<MenyuViewModel>();
+                 }
+                 ));
+        }
+
+        private RelayCommand selectCommand;
+        public RelayCommand SelectCommand
+        {
+            get => selectCommand ?? (selectCommand = new RelayCommand(
+                 () =>
+                 {
+                     Messenger.Default.Send(new CityMessage { CityInfo = SelectedCity });
+                     navigation.Navigate<TripsViewModel>();
                  }
                  ));
         }
