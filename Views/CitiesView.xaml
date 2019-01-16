@@ -6,59 +6,80 @@
              xmlns:local="clr-namespace:TravelApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="400">
-    <StackPanel>
-        <Label FontSize="30" VerticalAlignment="Center" 
-               HorizontalAlignment="Center" FontStyle="Italic" 
-               Foreground="#FF780909" FontWeight="Bold" Content="Cities"/>
-        <Label FontSize="30" VerticalAlignment="Center" 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Grid.ColumnSpan="3" 
+                    Grid.RowSpan="1"
+                    Background="{Binding Path=ImagePath}">
+            <Label FontSize="30" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   FontStyle="Italic" 
+                   Foreground="#FF780909" 
+                   FontWeight="Bold" 
+                   Content="Cities"/>
+            <Label FontSize="30" VerticalAlignment="Center" 
                HorizontalAlignment="Center" FontStyle="Italic" 
                Foreground="#FF780909" FontWeight="Bold" Content="{Binding UserNick}"/>
-        <TextBox Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <ListBox x:Name="listView" ItemsSource="{Binding SearchCityList}"
-                                   SelectedItem="{Binding Path=SelectedCity}" Height="350">
-            <!--<ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="Black" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListBox.ItemContainerStyle>-->
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel>
-                        <WrapPanel>
-                            <TextBlock Text="Name: " />
-                            <TextBlock Text="{Binding name}" FontWeight="Bold" />
-                            <TextBlock Text=", " />
-                            <TextBlock Text="Country: " />
-                            <TextBlock Text="{Binding country}" FontWeight="Bold" />
-                            <TextBlock Text=" (" />
-                            <TextBlock Text="{Binding coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                            <TextBlock Text=" ; "></TextBlock>
-                            <TextBlock Text="{Binding coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                            <TextBlock Text=")" />
-                        </WrapPanel>
-                        <Image Height="50" Source="{Binding ImagePath}"></Image>
-                    </DockPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn Width="100" Header="Name"
-                                    DisplayMemberBinding="{Binding name}"  />
-                    <GridViewColumn Width="100" Header="Country"  
-                                    DisplayMemberBinding="{Binding country}" />
-                    <GridViewColumn Width="100" Header="Lat"
-                                    DisplayMemberBinding="{Binding coord.lat}" />
-                    <GridViewColumn Width="100" Header="Lon"
-                                    DisplayMemberBinding="{Binding coord.lon}" />
-                </GridView>
-            </ListView.View>-->
-        </ListBox>
-        <UniformGrid DockPanel.Dock="Bottom">
-            <Button Content="Back" Command="{Binding BackCommand}"></Button>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1" 
+                    Grid.ColumnSpan="3" 
+                    Grid.RowSpan="3">
+            <StackPanel.Background>
+                <ImageBrush ImageSource="{Binding ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel.Background>
+            <TextBox DockPanel.Dock="Top" 
+                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Background="Yellow"/>
+            <ListBox x:Name="listView"
+                         Height="350"
+                         ItemsSource="{Binding SearchCityList}"
+                         SelectedItem="{Binding Path=SelectedCity}" Background="{x:Null}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <WrapPanel>
+                                <TextBlock Text="Name: " />
+                                <TextBlock Text="{Binding name}" FontWeight="Bold" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="Country: " />
+                                <TextBlock Text="{Binding country}" FontWeight="Bold" />
+                                <TextBlock Text=" (" />
+                                <TextBlock Text="{Binding coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                <TextBlock Text=" ; "></TextBlock>
+                                <TextBlock Text="{Binding coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                <TextBlock Text=")" />
+                            </WrapPanel>
+
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <UniformGrid Grid.Column="0" Grid.Row="3">
+            <Button IsDefault="True" 
+                    Style="{StaticResource InformButton}" 
+                    Content="Select" 
+                    Command="{Binding SelectCommand}"></Button>
         </UniformGrid>
-    </StackPanel>
+        <UniformGrid Grid.Column="2" Grid.Row="3">
+            <Button IsDefault="True" 
+                    Style="{StaticResource InformButton}" 
+                    Content="Back" 
+                    Command="{Binding BackCommand}"></Button>
+        </UniformGrid>
+    </Grid>
 </UserControl>

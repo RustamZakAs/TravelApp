@@ -16,6 +16,8 @@ namespace TravelApp
         public string name { get; set; }
         public string country { get; set; }
         public coord coord { get; set; }
+        public string imageMobile { get; set; }
+        public string imageWeb { get; set; }
     }
 
     public class coord
@@ -35,6 +37,7 @@ namespace TravelApp
             {
                 using (WebClient web = new WebClient())
                 {
+                    web.Encoding = Encoding.UTF8;
                     var json = web.DownloadString(directory + file);
                     CityList = JsonConvert.DeserializeObject<ObservableCollection<CityInfo>>(json);
                 }

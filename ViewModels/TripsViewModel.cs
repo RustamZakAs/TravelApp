@@ -25,6 +25,9 @@ namespace TravelApp.ViewModels
         private Trip selectedTrip = new Trip();
         public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
 
+        private CityInfo inCityInfo;
+        public CityInfo InCityInfo { get => inCityInfo; set => Set(ref inCityInfo, value); }
+
         //private ViewModelBase back;
         //public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
@@ -39,6 +42,24 @@ namespace TravelApp.ViewModels
                 {
                     UserNick = msg.UserNick;
                 });
+
+            Messenger.Default.Register<CityInfo>(this,
+                msg =>
+                {
+                    InCityInfo = msg;
+                    if (msg != null)
+                    {
+                        TripList[TripList.Count - 1].CityInfo.Add(msg);
+                        TripList[TripList.Count - 1].Name = (TripList.Count - 1).ToString();
+                    }
+
+                });
+
+            Messenger.Default.Register<MenyuMessage>(this,
+               msg =>
+               {
+                   UserNick = msg.UserNick;
+               });
         }
 
         private RelayCommand backCommand;
@@ -60,6 +81,7 @@ namespace TravelApp.ViewModels
                  {
                      TripList.Add(new Trip());
                      navigation.Navigate<CitiesViewModel>();
+                     if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null) MessageBox.Show(SelectedTrip.CityInfo[0].name);
                  }
                  ));
         }

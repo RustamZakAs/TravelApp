@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,8 @@ namespace TravelApp.Models
         private string name;
         public string Name { get => name; set => Set(ref name, value); }
 
-        private CityInfo cityInfo;
-        public CityInfo CityInfo { get => cityInfo; set => Set(ref cityInfo, value); }
+        private ObservableCollection<CityInfo> cityInfo;
+        public ObservableCollection<CityInfo> CityInfo { get => cityInfo; set => Set(ref cityInfo, value); }
 
         private string cityImage;
         public string CityImage { get => cityImage; set => Set(ref cityImage, value); }

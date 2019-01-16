@@ -54,7 +54,7 @@
                             <DockPanel>
                                 <WrapPanel>
                                     <TextBlock Text="Name: " />
-                                    <TextBlock Text="{Binding name}" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
                                     <TextBlock Text=", " />
                                     <TextBlock Text="Country: " />
                                     <TextBlock Text="{Binding CityInfo.name}" FontWeight="Bold" />
