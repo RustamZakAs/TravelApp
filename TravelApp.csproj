@@ -366,6 +366,9 @@
     <Compile Include="Models\ViewModelLocator.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\CitiesViewModel.cs" />
+    <Compile Include="ViewModels\IntroViewModel.xaml.cs">
+      <DependentUpon>IntroViewModel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MenyuViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
@@ -420,6 +423,10 @@
     <Page Include="Styles\IconButton\SuperBarButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModels\IntroViewModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AppView.xaml">
       <SubType>Designer</SubType>
