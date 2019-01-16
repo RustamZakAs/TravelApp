@@ -69,7 +69,6 @@ namespace TravelApp.ViewModels
                         Messenger.Default.Send(new RegistrationMessage { UserNick = UserNick });
 
                     navigation.Navigate<RegistrationViewModel>();
-
                 }
                 ));
         }
@@ -94,6 +93,11 @@ namespace TravelApp.ViewModels
                     MessageBox.Show("Не забывал бы! ");
                 }
                 ));
+        }
+
+        public override string ToString()
+        {
+            return "Страница входа в программу";
         }
     }
 }

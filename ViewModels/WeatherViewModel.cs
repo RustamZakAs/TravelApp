@@ -118,5 +118,10 @@ namespace TravelApp.ViewModels
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return "Страница просмотра погоды по городам";
+        }
     }
 }

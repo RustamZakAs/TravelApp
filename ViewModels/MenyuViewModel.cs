@@ -75,6 +75,10 @@ namespace TravelApp.ViewModels
                 }
                 ));
         }
-        
+
+        public override string ToString()
+        {
+            return "Страница меню";
+        }
     }
 }

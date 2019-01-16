@@ -132,5 +132,10 @@ namespace TravelApp.ViewModels
                            !String.IsNullOrWhiteSpace(RegInfo.UserSurname))
                  ));
         }
+
+        public override string ToString()
+        {
+            return "Страница регистрации пользователя";
+        }
     }
 }

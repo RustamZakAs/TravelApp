@@ -127,10 +127,16 @@ namespace TravelApp.ViewModels
             get => selectCommand ?? (selectCommand = new RelayCommand(
                  () =>
                  {
-                     Messenger.Default.Send(new CityMessage { CityInfo = SelectedCity });
+                     //Messenger.Default.Send(new CityMessage { CityInfo = SelectedCity }); //Rustam
+                     Messenger.Default.Send(new NotificationMessage<CityInfo>(SelectedCity, "SelectCity")); //Diana
                      navigation.Navigate<TripsViewModel>();
                  }
                  ));
+        }
+
+        public override string ToString()
+        {
+            return "Страница выбора и просмотра города";
         }
     }
 }

@@ -15,6 +15,6 @@
         <MediaElement x:Name="thePlayer" 
                       Grid.Row="1" 
                       LoadedBehavior="Play" Stretch="Fill"
-                      UnloadedBehavior="Manual" Source="C:\Users\Rustam.z\source\repos\TravelAppRZ\Resources\IntroPhone.mp4"/>
+                      UnloadedBehavior="Manual" Source="{Binding IntroVideo}"/>
     </Grid>
 </UserControl>

@@ -7,19 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
     <DockPanel>
-        <UniformGrid DockPanel.Dock="Top">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label FontSize="30" VerticalAlignment="Center" 
                HorizontalAlignment="Center" FontStyle="Italic" 
                Foreground="#FF780909" FontWeight="Bold" Content="Trips"/>
             <Label FontSize="30" VerticalAlignment="Center" 
                HorizontalAlignment="Center" FontStyle="Italic" 
                Foreground="#FF780909" FontWeight="Bold" Content="{Binding UserNick}"/>
-        </UniformGrid>
+        </StackPanel>
         <UniformGrid DockPanel.Dock="Bottom">
             <Button Content="Back" Command="{Binding BackCommand}"></Button>
         </UniformGrid>
-        <UniformGrid Columns="1" Rows="1">
-            <Grid>
+        <UniformGrid Columns="1" Rows="1" Background="Black">
+            <Grid ShowGridLines="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="72"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -33,40 +33,95 @@
                 <Button Grid.Column="0" Grid.Row="0" 
                         VerticalAlignment="Top" Height="70" 
                         Command="{Binding AddCommand}" 
-                        Content="/TravelApp;component/Resources/Plus-297823_640.png" 
+                        Content="/TravelApp;component/Resources/Plus.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
                 <Button Grid.Column="1" Grid.Row="0" 
                         VerticalAlignment="Top" Height="70" 
                         Command="{Binding RemoveCommand}" 
-                        Content="/TravelApp;component/Resources/remove-151678_960_720.png" 
+                        Content="/TravelApp;component/Resources/Remove.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
                 <Button Grid.Column="2" Grid.Row="0" 
                         VerticalAlignment="Top" Height="70" 
                         Command="{Binding OkCommand}" 
-                        Content="/TravelApp;component/Resources/Ok-PNG-File.png" 
+                        Content="/TravelApp;component/Resources/Ok.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
                 <ListBox Grid.Column="0" Grid.Row="1" 
                          Grid.ColumnSpan="3" Grid.RowSpan="2"
                          ItemsSource="{Binding TripList}"
-                         SelectedItem="{Binding Path=SelectedTrip}">
+                         SelectedItem="{Binding Path=SelectedTrip}" Background="Yellow">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel>
-                                <WrapPanel>
-                                    <TextBlock Text="Name: " />
-                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                                    <TextBlock Text=", " />
-                                    <TextBlock Text="Country: " />
-                                    <TextBlock Text="{Binding CityInfo.name}" FontWeight="Bold" />
-                                    <TextBlock Text="{Binding CityInfo.country}" FontWeight="Bold" />
-                                    <TextBlock Text=" (" />
-                                    <TextBlock Text="{Binding CityInfo.coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                                    <TextBlock Text=" ; "></TextBlock>
-                                    <TextBlock Text="{Binding CityInfo.coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                                    <TextBlock Text=")" />
-                                </WrapPanel>
-                                <Image Height="50" Source="{Binding CityImage}"></Image>
-                            </DockPanel>
+                            <Grid ShowGridLines="True">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="Coral">
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                        <Button Height="27" Width="27"
+                                                        Command="{Binding AddCityCommand}" 
+                                                        Content="/TravelApp;component/Resources/Plus.png" 
+                                                        Style="{DynamicResource SuperBarButtonStyle}"/>
+                                        <Button Height="27" Width="27"
+                                                        Command="{Binding RemoveCityCommand}" 
+                                                        Content="/TravelApp;component/Resources/Remove.png" 
+                                                        Style="{DynamicResource SuperBarButtonStyle}"/>
+                                    </StackPanel>
+                                    <TextBlock Text="Name: "/>
+                                    <TextBox Text="{Binding Name}" FontWeight="Bold"/>
+                                </DockPanel>
+                                <ListBox ItemsSource="{Binding CityInfo}" 
+                                             Background="Green"
+                                             Grid.Column="0" Grid.Row="1" 
+                                             Grid.ColumnSpan="3" 
+                                             Grid.RowSpan="3">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Background="Red" Width="605">
+                                                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="25">
+                                                    <Button Foreground="Blue" Height="20" Command="{Binding WeatherCommand}">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/TravelApp;component/Resources/Weather_icons_grey.png"/>
+                                                        </Button.Background>
+                                                    </Button>
+                                                    <Button Foreground="Blue" Height="20" Command="{Binding MapCommand}">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/TravelApp;component/Resources/point_marker.png"/>
+                                                        </Button.Background>
+                                                    </Button>
+                                                    <Button Foreground="Blue" Height="20" Command="{Binding InfoCommand}">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/TravelApp;component/Resources/Infobox_info_icon.png"/>
+                                                        </Button.Background>
+                                                    </Button>
+                                                </StackPanel>
+                                                <Image DockPanel.Dock="Right" Height="70" Source="{Binding imageWeb}"></Image>
+
+                                                <TextBlock Text="Name: " />
+                                                <TextBlock Text="{Binding name}" FontWeight="Bold" />
+                                                <TextBlock Text=", " />
+                                                <TextBlock Text="Country: " />
+                                                <TextBlock Text="{Binding country}" FontWeight="Bold" />
+                                                
+                                                <TextBlock Text=" (" />
+                                                <TextBlock Text="{Binding coord.lat}" 
+                                                           TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                                <TextBlock Text=";"></TextBlock>
+                                                <TextBlock Text="{Binding coord.lon}" 
+                                                           TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                                <TextBlock Text=")" />
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

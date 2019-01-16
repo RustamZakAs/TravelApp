@@ -29,5 +29,10 @@ namespace TravelApp.ViewModels
                     UserNick = msg;
                 });
         }
+
+        public override string ToString()
+        {
+            return "Страница просмотра и добавления билетов";
+        }
     }
 }

@@ -33,6 +33,35 @@ namespace TravelApp.ViewModels
 
         private readonly IMyNavigationService navigation;
 
+        //public TripsViewModel(IMyNavigationService navigation)
+        //{
+        //    this.navigation = navigation;
+
+        //    Messenger.Default.Register<TripsMessage>(this,
+        //        msg =>
+        //        {
+        //            UserNick = msg.UserNick;
+        //        });
+
+        //    Messenger.Default.Register<CityInfo>(this,
+        //        msg =>
+        //        {
+        //            InCityInfo = msg;
+        //            if (msg != null)
+        //            {
+        //                TripList[TripList.Count - 1].CityInfo.Add(msg);
+        //                TripList[TripList.Count - 1].Name = (TripList.Count - 1).ToString();
+        //            }
+
+        //        });
+
+        //    Messenger.Default.Register<MenyuMessage>(this,
+        //       msg =>
+        //       {
+        //           UserNick = msg.UserNick;
+        //       });
+        //}
+
         public TripsViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
@@ -43,23 +72,25 @@ namespace TravelApp.ViewModels
                     UserNick = msg.UserNick;
                 });
 
-            Messenger.Default.Register<CityInfo>(this,
-                msg =>
-                {
-                    InCityInfo = msg;
-                    if (msg != null)
-                    {
-                        TripList[TripList.Count - 1].CityInfo.Add(msg);
-                        TripList[TripList.Count - 1].Name = (TripList.Count - 1).ToString();
-                    }
+            Messenger.Default.Register<NotificationMessage<CityInfo>>(this, OnHitIt);
 
-                });
 
             Messenger.Default.Register<MenyuMessage>(this,
                msg =>
                {
                    UserNick = msg.UserNick;
                });
+        }
+
+        private void OnHitIt(NotificationMessage<CityInfo> nc)
+        {
+            if (nc.Notification == "SelectCity")
+            {
+                var tr = nc.Content;
+                if (TripList[TripList.Count - 1].CityInfo == null)
+                    TripList[TripList.Count - 1].CityInfo = new ObservableCollection<CityInfo>();
+                TripList[TripList.Count - 1].CityInfo.Add(tr);
+            }
         }
 
         private RelayCommand backCommand;
@@ -106,6 +137,11 @@ namespace TravelApp.ViewModels
                      navigation.Navigate<MenyuViewModel>();
                  }
                  ));
+        }
+
+        public override string ToString()
+        {
+            return "Страница списка путешествий";
         }
     }
 }

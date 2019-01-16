@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:TravelApp.ViewModels"
         mc:Ignorable="d"
         Style="{StaticResource VS2012WindowStyle}"
-        Title="AppView" Height="500" Width="333" Icon="/TravelApp;component/mapsmelogo_to2_8.ico">
+        Title="Travel App" Height="500" Width="333" Icon="/TravelApp;component/TravelAppLogo.ico">
     <Window.Resources>
         <ResourceDictionary Source="../DataTemplates.xaml"/>
     </Window.Resources>
@@ -22,12 +22,13 @@
             <Button Content="Trips" Command="{Binding NavigateCommand}" CommandParameter="{x:Type vm:TripsViewModel}"></Button>
         </UniformGrid>-->
         <DockPanel>
-            <StatusBar DockPanel.Dock="Bottom" Height="30" HorizontalAlignment="Stretch">
+            <StatusBar DockPanel.Dock="Bottom" Height="23" HorizontalAlignment="Stretch">
+                <TextBlock Text="{Binding CurrentPage}"/>
                 <DockPanel DockPanel.Dock="Left">
                     <TextBlock Margin="3,0,0,0" Text=""/>
                 </DockPanel>
                 <StatusBarItem DockPanel.Dock="Right" HorizontalAlignment="Right">
-                    <ResizeGrip Opacity="0.75"/>
+                    <ResizeGrip Opacity="1.75"/>
                 </StatusBarItem>
             </StatusBar>
             <ContentControl Content="{Binding CurrentPage}"/>
