@@ -6,8 +6,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="650"
-             d:DataContext="{d:DesignInstance vm:TripsViewModel}">
+             d:DataContext="{d:DesignInstance vm:TripsViewModel}"
+             d:DesignHeight="450" d:DesignWidth="650">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label FontSize="30" VerticalAlignment="Center" 
