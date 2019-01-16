@@ -24,4 +24,10 @@
     <DataTemplate DataType="{x:Type vm:IntroViewModel}">
         <v:IntroView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:MapViewModel}">
+        <v:MapView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:SearchInfoViewModel}">
+        <v:SearchInfoView/>
+    </DataTemplate>
 </ResourceDictionary>
