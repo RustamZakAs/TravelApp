@@ -2,10 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:vm="clr-namespace:TravelApp.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="300">
+             d:DesignHeight="450" d:DesignWidth="650"
+             d:DataContext="{d:DesignInstance vm:TripsViewModel}">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label FontSize="30" VerticalAlignment="Center" 
@@ -16,19 +18,25 @@
                Foreground="#FF780909" FontWeight="Bold" Content="{Binding UserNick}"/>
         </StackPanel>
         <UniformGrid DockPanel.Dock="Bottom">
-            <Button Content="Back" Command="{Binding BackCommand}"></Button>
+            <!--<Button Content="Back" Command="{Binding BackCommand}"/>-->
+            <UniformGrid Grid.Column="2" Grid.Row="3">
+                <Button IsDefault="True" 
+                        Style="{StaticResource InformButton}" 
+                        Content="Back" 
+                        Command="{Binding BackCommand}"/>
+            </UniformGrid>
         </UniformGrid>
         <UniformGrid Columns="1" Rows="1" Background="Black">
             <Grid ShowGridLines="True">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="72"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="72"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" 
                         VerticalAlignment="Top" Height="70" 
@@ -53,15 +61,15 @@
                         <DataTemplate>
                             <Grid ShowGridLines="True">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
                                 <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="Coral">
                                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
@@ -85,18 +93,18 @@
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <DockPanel Background="Red" Width="605">
-                                                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="25">
-                                                    <Button Foreground="Blue" Height="20" Command="{Binding WeatherCommand}">
+                                                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="24">
+                                                    <Button Foreground="Blue" Height="24" Command="{Binding WeatherCommand}">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/TravelApp;component/Resources/Weather_icons_grey.png"/>
                                                         </Button.Background>
                                                     </Button>
-                                                    <Button Foreground="Blue" Height="20" Command="{Binding MapCommand}">
+                                                    <Button Foreground="Blue" Height="24" Command="{Binding MapCommand}">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/TravelApp;component/Resources/point_marker.png"/>
                                                         </Button.Background>
                                                     </Button>
-                                                    <Button Foreground="Blue" Height="20" Command="{Binding InfoCommand}">
+                                                    <Button Foreground="Blue" Height="24" Command="{Binding SearchInfoCommand}">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/TravelApp;component/Resources/Infobox_info_icon.png"/>
                                                         </Button.Background>

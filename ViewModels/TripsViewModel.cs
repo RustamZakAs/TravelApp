@@ -37,12 +37,6 @@ namespace TravelApp.ViewModels
         //{
         //    this.navigation = navigation;
 
-        //    Messenger.Default.Register<TripsMessage>(this,
-        //        msg =>
-        //        {
-        //            UserNick = msg.UserNick;
-        //        });
-
         //    Messenger.Default.Register<CityInfo>(this,
         //        msg =>
         //        {
@@ -73,7 +67,6 @@ namespace TravelApp.ViewModels
                 });
 
             Messenger.Default.Register<NotificationMessage<CityInfo>>(this, OnHitIt);
-
 
             Messenger.Default.Register<MenyuMessage>(this,
                msg =>
@@ -138,6 +131,40 @@ namespace TravelApp.ViewModels
                  }
                  ));
         }
+
+        private RelayCommand weatherCommand;
+        public RelayCommand WeatherCommand
+        {
+            get => weatherCommand ?? (weatherCommand = new RelayCommand(
+                 () =>
+                 {
+                     navigation.Navigate<WeatherViewModel>();
+                 }
+                 ));
+        }
+
+        private RelayCommand mapCommand;
+        public RelayCommand MapCommand
+        {
+            get => mapCommand ?? (mapCommand = new RelayCommand(
+                 () =>
+                 {
+                     navigation.Navigate<MapViewModel>();
+                 }
+                 ));
+        }
+
+        private RelayCommand searchInfoCommand;
+        public RelayCommand SearchInfoCommand
+        {
+            get => searchInfoCommand ?? (searchInfoCommand = new RelayCommand(
+                 () =>
+                 {
+                     navigation.Navigate<SearchInfoViewModel>();
+                 }
+                 ));
+        }
+        
 
         public override string ToString()
         {
