@@ -95,7 +95,6 @@ namespace TravelApp.ViewModels
                 return;
             }
             
-
             CityName = String.Format("{0}", result.name);
             Country = String.Format("{0}", result.sys.country);
             Temp = String.Format("{0} °С", result.main.temp); //°F  °С  ℃
@@ -103,17 +102,20 @@ namespace TravelApp.ViewModels
 
             var Object = weatherInfo.GetForcast(city) ?? new weatherForcast.Root();
 
-            Condition = String.Format("{0}", Object.list[0].weather[0].main);
-            Discription = String.Format("{0}", Object.list[0].weather[0].description);
-            Temp2 = String.Format("{0} °С", Object.list[0].main.temp);
-            WindSpeed = String.Format("{0} km/h", Object.list[0].wind.speed);
-            Image2 = String.Format("http://openweathermap.org/img/w/{0}.png", Object.list[0].weather[0].icon);
-
-            WeatherList.Clear();
-            for (int i = 0; i < Object.list.Count; i++)
+            if (Object != null)
             {
-                WeatherList.Add(Object.list[i]);
-                WeatherList[i].weather[0].iconPaht = String.Format("http://openweathermap.org/img/w/{0}.png", Object.list[0].weather[0].icon);
+                Condition = String.Format("{0}", Object.list[0].weather[0].main);
+                Discription = String.Format("{0}", Object.list[0].weather[0].description);
+                Temp2 = String.Format("{0} °С", Object.list[0].main.temp);
+                WindSpeed = String.Format("{0} km/h", Object.list[0].wind.speed);
+                Image2 = String.Format("http://openweathermap.org/img/w/{0}.png", Object.list[0].weather[0].icon);
+
+                WeatherList.Clear();
+                for (int i = 0; i < Object.list.Count; i++)
+                {
+                    WeatherList.Add(Object.list[i]);
+                    WeatherList[i].weather[0].iconPaht = String.Format("http://openweathermap.org/img/w/{0}.png", Object.list[0].weather[0].icon);
+                }
             }
         }
     }

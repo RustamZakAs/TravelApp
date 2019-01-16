@@ -21,4 +21,7 @@
     <DataTemplate DataType="{x:Type vm:CitiesViewModel}">
         <v:CitiesView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:IntroViewModel}">
+        <v:IntroView/>
+    </DataTemplate>
 </ResourceDictionary>

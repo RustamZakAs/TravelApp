@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="TravelApp.Views.IntroView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TravelApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="40"></RowDefinition>-->
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--<Button Grid.Row="0" Content="Play" Width="100" Margin="5" Command="{Binding PlayCommand}" Click="Button_Click"></Button>-->
+        <MediaElement x:Name="thePlayer" 
+                      Grid.Row="1" 
+                      LoadedBehavior="Play" Stretch="Fill"
+                      UnloadedBehavior="Manual" Source="C:\Users\Rustam.z\source\repos\TravelAppRZ\Resources\IntroPhone.mp4"/>
+    </Grid>
+</UserControl>

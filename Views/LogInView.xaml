@@ -13,7 +13,7 @@
     </UserControl.Background>
     <StackPanel HorizontalAlignment="Center" 
                 VerticalAlignment="Center">
-        <Image Source="/TravelApp;component/Resources/empty_user.png" 
+        <Image Source="{Binding UserImage}" 
                Width="250" Height="250"/>
         <Label Content="User Nick or E-mail:" Background="Azure"/>
         <TextBox Background="Red" FontSize="20" Text="{Binding UserNick}"/>

@@ -19,6 +19,9 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
+        private string userImage = "/TravelApp;component/Resources/empty_user.png";
+        public string UserImage { get => userImage; set => Set(ref userImage, value); }
+        
         //private ViewModelBase back;
         //public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
