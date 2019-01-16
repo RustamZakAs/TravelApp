@@ -10,13 +10,11 @@
              d:DesignHeight="450" d:DesignWidth="300">
     <DockPanel>
         <UniformGrid DockPanel.Dock="Top">
-            
-        </UniformGrid>
-        <UniformGrid>
-            <WebBrowser Source="{Binding PathPDF}"></WebBrowser>
+            <TextBox Text="{Binding PathPDF}"></TextBox>
         </UniformGrid>
         <UniformGrid DockPanel.Dock="Bottom">
             <Button Content="Back" Command="{Binding BackCommand}"></Button>
-        </UniformGrid>                
+        </UniformGrid>
+        <WebBrowser Source="https://www.google.az"></WebBrowser>
     </DockPanel>
 </UserControl>

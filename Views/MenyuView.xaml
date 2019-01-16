@@ -46,7 +46,7 @@
                 <Button Height="100" Width="100" Command="{Binding CitiesCommand}" 
                         Content="/TravelApp;component/Resources/cityes.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
-                <Button Height="100" Width="100" 
+                <Button Height="100" Width="100" Command="{Binding TicketsCommand}"
                         Content="/TravelApp;component/Resources/empty_user.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
                 <Button Height="100" Width="100" 

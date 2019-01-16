@@ -76,6 +76,17 @@ namespace TravelApp.ViewModels
                 ));
         }
 
+        private RelayCommand ticketsCommand;
+        public RelayCommand TicketsCommand
+        {
+            get => ticketsCommand ?? (ticketsCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate<TicketsPDFViewModel>();
+                }
+                ));
+        }
+        
         public override string ToString()
         {
             return "Страница меню";
