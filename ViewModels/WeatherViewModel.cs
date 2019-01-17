@@ -75,7 +75,6 @@ namespace TravelApp.ViewModels
             get => _WeatherOkCommand ?? (_WeatherOkCommand = new RelayCommand(
                  () =>
                  {
-                     //if (City)
                      ViewWeather(City);
                  }
                  ));
@@ -121,7 +120,7 @@ namespace TravelApp.ViewModels
 
         public override string ToString()
         {
-            return "Страница просмотра погоды по городам";
+            return "Страница просмотра по городу погоды";
         }
     }
 }

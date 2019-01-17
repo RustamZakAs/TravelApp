@@ -76,10 +76,10 @@ namespace TravelApp.ViewModels
                 ));
         }
 
-        private RelayCommand ticketsCommand;
-        public RelayCommand TicketsCommand
+        private RelayCommand ticketsPDFCommand;
+        public RelayCommand TicketsPDFCommand
         {
-            get => ticketsCommand ?? (ticketsCommand = new RelayCommand(
+            get => ticketsPDFCommand ?? (ticketsPDFCommand = new RelayCommand(
                 () =>
                 {
                     navigation.Navigate<TicketsPDFViewModel>();

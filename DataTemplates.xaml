@@ -33,4 +33,7 @@
     <DataTemplate DataType="{x:Type vm:SearchInfoViewModel}">
         <v:SearchInfoView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TicketsViewModel}">
+        <v:TicketsView/>
+    </DataTemplate>
 </ResourceDictionary>

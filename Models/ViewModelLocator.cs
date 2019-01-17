@@ -22,6 +22,7 @@ namespace TravelApp
         private IntroViewModel        introViewModel;
         private MapViewModel          mapViewModel;
         private SearchInfoViewModel   searchInfoViewModel;
+        private TicketsViewModel      ticketsViewModel;
 
         private IMyNavigationService  myNavigationService;
 
@@ -40,6 +41,7 @@ namespace TravelApp
             introViewModel        = new IntroViewModel(myNavigationService);
             mapViewModel          = new MapViewModel(myNavigationService);
             searchInfoViewModel   = new SearchInfoViewModel(myNavigationService);
+            ticketsViewModel      = new TicketsViewModel(myNavigationService);
 
             myNavigationService.Register<LogInViewModel>(logInViewModel);
             myNavigationService.Register<MenyuViewModel>(menyuViewModel);
@@ -51,6 +53,7 @@ namespace TravelApp
             myNavigationService.Register<IntroViewModel>(introViewModel);
             myNavigationService.Register<MapViewModel>(mapViewModel);
             myNavigationService.Register<SearchInfoViewModel>(searchInfoViewModel);
+            myNavigationService.Register<TicketsViewModel>(ticketsViewModel);
 
             //myNavigationService.Register("LogIn", logInViewModel);
             //myNavigationService.Register("Menyu", menyuViewModel);

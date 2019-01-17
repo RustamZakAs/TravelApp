@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using TravelApp.Services;
 
 namespace TravelApp.ViewModels
 {
-    class TicketsPDFViewModel : ViewModelBase
+    class TicketsViewModel : ViewModelBase
     {
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
@@ -19,7 +18,7 @@ namespace TravelApp.ViewModels
         public string PathPDF { get => pathPDF; set => Set(ref pathPDF, value); }
 
         private readonly IMyNavigationService navigation;
-        public TicketsPDFViewModel(IMyNavigationService navigation)
+        public TicketsViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
 
@@ -43,7 +42,7 @@ namespace TravelApp.ViewModels
 
         public override string ToString()
         {
-            return "Страница просмотра билета";
+            return "Страница предпросмотра и добавления билетов";
         }
     }
 }
