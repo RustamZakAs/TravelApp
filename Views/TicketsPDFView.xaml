@@ -10,11 +10,11 @@
              d:DesignHeight="450" d:DesignWidth="300">
     <DockPanel>
         <UniformGrid DockPanel.Dock="Top">
-            <TextBox Text="{Binding PathPDF}"></TextBox>
+            <TextBox Text="{Binding PathPDF}"/>
         </UniformGrid>
         <UniformGrid DockPanel.Dock="Bottom">
-            <Button Content="Back" Command="{Binding BackCommand}"></Button>
+            <Button Content="Back" Command="{Binding BackCommand}"/>
         </UniformGrid>
-        <!--<WebBrowser Source="{Binding PathPDF}"></WebBrowser>-->
+        <WebBrowser Source="{Binding PathPDF}"/>
     </DockPanel>
 </UserControl>
