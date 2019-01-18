@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +17,34 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
+        private Microsoft.Maps.MapControl.WPF.Location mapCenter;
+        public Microsoft.Maps.MapControl.WPF.Location MapCenter { get => mapCenter; set => Set(ref mapCenter, value); }
+
+        public ObservableCollection<MapLocation> Locations { get; private set; } = new ObservableCollection<MapLocation>();
+
         private readonly IMyNavigationService navigation;
         public MapViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
+
+            Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location();
+            location.Latitude = 40.414898;
+            location.Longitude = 49.853107;
+            location.Altitude = 4000.00;
+
+            MapCenter = location;
+
+            MapLocation mapLocation = new MapLocation();
+            mapLocation.Location.Latitude = 40.414898;
+            mapLocation.Location.Longitude = 49.853107;
+            //mapLocation.Location.Altitude = 40.00;
+            //mapLocation.Location.Course = 0;
+            //mapLocation.Location.HorizontalAccuracy = 1;
+            //mapLocation.Location.VerticalAccuracy = 1;
+            //mapLocation.Location.Speed = 10;
+            mapLocation.Name = "IT STEP Academy";
+            Locations.Add(mapLocation);
+
 
             Messenger.Default.Register<MenyuMessage>(this,
                msg =>
@@ -38,5 +63,20 @@ namespace TravelApp.ViewModels
                  }
                  ));
         }
+
+        public override string ToString()
+        {
+            return "Страница просмотра карты";
+        }
+    }
+
+    public class MapLocation
+    {
+        public MapLocation()
+        {
+            Location = new System.Device.Location.GeoCoordinate();
+        }
+        public System.Device.Location.GeoCoordinate Location { get; set; }
+        public string Name { get; set; }
     }
 }

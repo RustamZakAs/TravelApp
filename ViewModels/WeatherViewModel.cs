@@ -16,6 +16,9 @@ namespace TravelApp.ViewModels
         //private ViewModelBase back;
         //public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
+        private string userNick;
+        public string UserNick { get => userNick; set => Set(ref userNick, value); }
+
         private string city = "Moscow";
         public string City { get => city; set => Set(ref city, value); }
 

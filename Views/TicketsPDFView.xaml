@@ -9,12 +9,13 @@
              d:DataContext="{d:DesignInstance vm:TicketsPDFViewModel}"
              d:DesignHeight="450" d:DesignWidth="300">
     <DockPanel>
-        <UniformGrid DockPanel.Dock="Top">
+        <StackPanel DockPanel.Dock="Top">
             <TextBox Text="{Binding PathPDF}"/>
-        </UniformGrid>
+            <Button Content="Click" Command="{Binding ClickCommand}"/>
+        </StackPanel>
         <UniformGrid DockPanel.Dock="Bottom">
             <Button Content="Back" Command="{Binding BackCommand}"/>
         </UniformGrid>
-        <WebBrowser Source="{Binding PathPDF}"/>
+        <WebBrowser x:Name="webBrowserMain" Source="{Binding PathPDF}"/>
     </DockPanel>
 </UserControl>

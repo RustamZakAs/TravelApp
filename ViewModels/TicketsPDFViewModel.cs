@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelApp.Services;
+using TravelApp.Views;
 
 namespace TravelApp.ViewModels
 {
@@ -15,7 +16,7 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
-        private string pathPDF = @"C:\Users\User\source\repos\TravelApp\Resources\dypexamarea.pdf";
+        private string pathPDF;// = @"C:\Users\User\source\repos\TravelApp\Resources\dypexamarea.pdf";
         public string PathPDF { get => pathPDF; set => Set(ref pathPDF, value); }
 
         private readonly IMyNavigationService navigation;
@@ -37,6 +38,17 @@ namespace TravelApp.ViewModels
                 () =>
                 {
                     navigation.Navigate<MenyuViewModel>();
+                }
+                ));
+        }
+
+        private RelayCommand clickCommand;
+        public RelayCommand ClickCommand
+        {
+            get => clickCommand ?? (clickCommand = new RelayCommand(
+                () =>
+                {
+
                 }
                 ));
         }

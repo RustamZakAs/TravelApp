@@ -38,6 +38,7 @@ namespace TravelApp.ViewModels
             get => weatherCommand ?? (weatherCommand = new RelayCommand(
                 () =>
                 {
+                    Messenger.Default.Send(UserNick);
                     navigation.Navigate<WeatherViewModel>();
                 }
                 ));
@@ -49,6 +50,7 @@ namespace TravelApp.ViewModels
             get => tripsCommand ?? (tripsCommand = new RelayCommand(
                 () =>
                 {
+                    Messenger.Default.Send(UserNick);
                     navigation.Navigate<TripsViewModel>();
                 }
                 ));
@@ -60,6 +62,7 @@ namespace TravelApp.ViewModels
             get => backCommand ?? (backCommand = new RelayCommand(
                 () =>
                 {
+                    Messenger.Default.Send(UserNick);
                     navigation.Navigate<LogInViewModel>();
                 }
                 ));
@@ -71,6 +74,7 @@ namespace TravelApp.ViewModels
             get => citiesCommand ?? (citiesCommand = new RelayCommand(
                 () =>
                 {
+                    Messenger.Default.Send(UserNick);
                     navigation.Navigate<CitiesViewModel>();
                 }
                 ));
@@ -82,11 +86,25 @@ namespace TravelApp.ViewModels
             get => ticketsPDFCommand ?? (ticketsPDFCommand = new RelayCommand(
                 () =>
                 {
+                    Messenger.Default.Send(UserNick);
                     navigation.Navigate<TicketsPDFViewModel>();
                 }
                 ));
         }
-        
+
+        private RelayCommand mapCommand;
+        public RelayCommand MapCommand
+        {
+            get => mapCommand ?? (mapCommand = new RelayCommand(
+                () =>
+                {
+                    Messenger.Default.Send(UserNick);
+                    Messenger.Default.Send(new MenyuMessage { UserNick = UserNick });
+                    navigation.Navigate<MapViewModel>();
+                }
+                ));
+        }
+
         public override string ToString()
         {
             return "Страница меню";
