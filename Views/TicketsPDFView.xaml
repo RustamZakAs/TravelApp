@@ -15,6 +15,6 @@
         <UniformGrid DockPanel.Dock="Bottom">
             <Button Content="Back" Command="{Binding BackCommand}"></Button>
         </UniformGrid>
-        <WebBrowser Source="{Binding PathPDF}"></WebBrowser>
+        <!--<WebBrowser Source="{Binding PathPDF}"></WebBrowser>-->
     </DockPanel>
 </UserControl>
