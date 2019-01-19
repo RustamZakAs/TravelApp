@@ -54,7 +54,7 @@
                    Grid.Row="0"
                    x:Name="Map" 
                    Center="{Binding Locations}"
-                   CredentialsProvider="AulFfTa2JTkb25yJkQCMoQVL1f3mL-K7sy4YniYYQljFJj0Tifiyr0GR26B9r_po" ZoomLevel="16">
+                   CredentialsProvider="AulFfTa2JTkb25yJkQCMoQVL1f3mL-K7sy4YniYYQljFJj0Tifiyr0GR26B9r_po">
                 <m:MapItemsControl ItemsSource="{Binding Locations}">
                     <m:MapItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -63,6 +63,7 @@
                     </m:MapItemsControl.ItemTemplate>
                 </m:MapItemsControl>
                 <m:Pushpin Location="{Binding MapCenter}"></m:Pushpin>
+                <!--<m:Pushpin Location="{Binding Locations}"></m:Pushpin>-->
             </m:Map>
         </Grid>
         <UniformGrid Grid.Column="2" Grid.Row="3">

@@ -37,13 +37,19 @@ namespace TravelApp.ViewModels
             MapLocation mapLocation = new MapLocation();
             mapLocation.Location.Latitude = 40.414898;
             mapLocation.Location.Longitude = 49.853107;
+
+            MapLocation mapLocation1 = new MapLocation();
+            mapLocation1.Location.Latitude = 40.414898;
+            mapLocation1.Location.Longitude = 48.853107;
             //mapLocation.Location.Altitude = 40.00;
             //mapLocation.Location.Course = 0;
             //mapLocation.Location.HorizontalAccuracy = 1;
             //mapLocation.Location.VerticalAccuracy = 1;
             //mapLocation.Location.Speed = 10;
             mapLocation.Name = "IT STEP Academy";
+            mapLocation1.Name = "IT STEP Academy 1";
             Locations.Add(mapLocation);
+            Locations.Add(mapLocation1);
 
 
             Messenger.Default.Register<MenyuMessage>(this,

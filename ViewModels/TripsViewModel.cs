@@ -25,7 +25,10 @@ namespace TravelApp.ViewModels
         private Trip selectedTrip = new Trip();
         public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
 
-        private CityInfo inCityInfo;
+        private CityInfo selectedCity = new CityInfo();
+        public CityInfo SelectedCity { get => selectedCity; set => Set(ref selectedCity, value); }
+
+        private CityInfo inCityInfo = new CityInfo();
         public CityInfo InCityInfo { get => inCityInfo; set => Set(ref inCityInfo, value); }
 
         //private ViewModelBase back;
@@ -36,7 +39,6 @@ namespace TravelApp.ViewModels
         //public TripsViewModel(IMyNavigationService navigation)
         //{
         //    this.navigation = navigation;
-
         //    Messenger.Default.Register<CityInfo>(this,
         //        msg =>
         //        {
@@ -46,7 +48,6 @@ namespace TravelApp.ViewModels
         //                TripList[TripList.Count - 1].CityInfo.Add(msg);
         //                TripList[TripList.Count - 1].Name = (TripList.Count - 1).ToString();
         //            }
-
         //        });
 
         //    Messenger.Default.Register<MenyuMessage>(this,
@@ -59,7 +60,7 @@ namespace TravelApp.ViewModels
         public TripsViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
-
+            
             Messenger.Default.Register<TripsMessage>(this,
                 msg =>
                 {
@@ -80,9 +81,16 @@ namespace TravelApp.ViewModels
             if (nc.Notification == "SelectCity")
             {
                 var tr = nc.Content;
+                //SelectedTrip = TripList[TripList.Count - 1];
                 if (TripList[TripList.Count - 1].CityInfo == null)
                     TripList[TripList.Count - 1].CityInfo = new ObservableCollection<CityInfo>();
                 TripList[TripList.Count - 1].CityInfo.Add(tr);
+                //if (tr != null)
+                //{
+                //    //TripList.Where(x => x == this.SelectedTrip).First().CityInfo.Add(tr);
+                //    var z = (ObservableCollection<Trip>)TripList.Where(x => x == this.SelectedTrip);
+                //    z[0].CityInfo.Add(tr);
+                //}
             }
         }
 
@@ -103,9 +111,10 @@ namespace TravelApp.ViewModels
             get => addCommand ?? (addCommand = new RelayCommand(
                  () =>
                  {
-                     TripList.Add(new Trip());
-                     navigation.Navigate<CitiesViewModel>();
-                     if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null) MessageBox.Show(SelectedTrip.CityInfo[0].name);
+                     string s = String.Format(@"Trip {0}",TripList.Count);
+                     TripList.Add(new Trip(s));
+                     //navigation.Navigate<CitiesViewModel>();
+                     //if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null) MessageBox.Show(SelectedTrip.CityInfo[0].name);
                  }
                  ));
         }
@@ -116,7 +125,8 @@ namespace TravelApp.ViewModels
             get => removeCommand ?? (removeCommand = new RelayCommand(
                  () =>
                  {
-                     navigation.Navigate<MenyuViewModel>();
+                     TripList.Remove(SelectedTrip);
+                     //navigation.Navigate<MenyuViewModel>();
                  }
                  ));
         }
@@ -164,7 +174,44 @@ namespace TravelApp.ViewModels
                  }
                  ));
         }
+
         
+        private RelayCommand addCityCommand;
+        public RelayCommand AddCityCommand
+        {
+            get => addCityCommand ?? (addCityCommand = new RelayCommand(
+                 () =>
+                 {
+                     //TripList.Where(x => x == this.selectedTrip).First().CityInfo.Add(new CityInfo());
+                     //var selectedTrip = 
+                     //var selectedCity = selectedTrip.CityInfo.Where(x => x == this.SelectedCity).First();
+                     //selectedTrip.CityInfo.Add(new CityInfo());
+                     navigation.Navigate<CitiesViewModel>();
+                     //if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null)
+                     //    MessageBox.Show(SelectedTrip.CityInfo[0].name);
+                 }
+                 ));
+        }
+        
+        private RelayCommand removeCityCommand;
+        public RelayCommand RemoveCityCommand
+        {
+            get => removeCityCommand ?? (removeCityCommand = new RelayCommand(
+                 () =>
+                 {
+                     //TripList.Where(x => x == SelectedTrip); 
+                     //TripList.Where(x => x == this.selectedTrip).First().CityInfo.Where(y => y == this.SelectedCity);
+                     TripList.Where(x => x == this.SelectedTrip).First().CityInfo.Remove(SelectedCity);
+                     //TripList.Re
+                     //var selectedTrip = 
+                     //var selectedCity = selectedTrip.CityInfo.Where(x => x == this.SelectedCity).First();
+                     //selectedTrip.CityInfo.Add(new CityInfo());
+                     //navigation.Navigate<CitiesViewModel>();
+                     //if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null)
+                     //    MessageBox.Show(SelectedTrip.CityInfo[0].name);
+                 }
+                 ));
+        }
 
         public override string ToString()
         {

@@ -587,6 +587,7 @@
     <Resource Include="Resources\night_weather.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\empty_image.png" />
     <Content Include="System.Device.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

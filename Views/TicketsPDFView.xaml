@@ -12,13 +12,15 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Top">
             <TextBox Text="{Binding PathPDF}"/>
-            <Button Content="Click" Command="{Binding ClickCommand}"/>
-            
+            <Button Content="Click" 
+                    Style="{StaticResource InformButton}"
+                    Command="{Binding ClickCommand}"/>
         </StackPanel>
         <UniformGrid DockPanel.Dock="Bottom">
-            <Button Content="Back" Command="{Binding BackCommand}"/>
+            <Button Content="Back"
+                    Style="{StaticResource InformButton}"
+                    Command="{Binding BackCommand}"/>
         </UniformGrid>
-        <!--<WebBrowser x:Name="webBrowserMain" Source="{Binding PathPDF}"/>-->
-        <WebBrowser Source="C:\Users\Zaka_oz49\Downloads\WPF_urok.pdf"/>
+        <WebBrowser ns:WebBrowserUtility.BindableSource="{Binding PathPDF}"/>
     </DockPanel>
 </UserControl>

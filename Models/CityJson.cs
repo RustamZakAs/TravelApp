@@ -18,12 +18,28 @@ namespace TravelApp
         public coord coord { get; set; }
         public string imageMobile { get; set; }
         public string imageWeb { get; set; }
+
+        public CityInfo()
+        {
+            id = 0;
+            name = "";
+            country = "";
+            coord = new coord();
+            imageMobile = @"/Resources/empty_image.png";
+            imageWeb = @"/Resources/empty_image.png";
+        }
     }
 
     public class coord
     {
         public double lat { get; set; }
         public double lon { get; set; }
+
+        public coord()
+        {
+            lat = 0;
+            lon = 0;
+        }
     }
 
     public class City

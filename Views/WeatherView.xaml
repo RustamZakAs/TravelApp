@@ -38,9 +38,12 @@
                 <KeyBinding Command="{Binding Path=WeatherOkCommand}" Key="Enter" />
             </TextBox.InputBindings>
         </TextBox>
-        <Button DockPanel.Dock="Top" Content="OK" Command="{Binding WeatherOkCommand}"/>
+        <Button DockPanel.Dock="Top" Content="OK" 
+                Style="{StaticResource InformButton}"
+                Command="{Binding WeatherOkCommand}"/>
         <UniformGrid DockPanel.Dock="Bottom">
             <Button Content="Back" 
+                    Style="{StaticResource InformButton}"
                     Command="{Binding BackCommand}"></Button>
         </UniformGrid>
         <DockPanel DockPanel.Dock="Top">

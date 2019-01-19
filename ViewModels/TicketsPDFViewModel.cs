@@ -26,7 +26,7 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
 
-            PathPDF = @"C:\Users\Zaka_oz49\Downloads\WPF_urok.pdf";
+            PathPDF = @"C:\Users\User\source\repos\TravelApp\Resources\dypexamarea.pdf";
 
             //Messenger.Default.Register<string>(this,
             //    msg =>
@@ -52,7 +52,7 @@ namespace TravelApp.ViewModels
             get => clickCommand ?? (clickCommand = new RelayCommand(
                 () =>
                 {
-                    PathPDF = @"C:\Users\Zaka_oz49\Downloads\WPF_urok.pdf";
+                    PathPDF = @"C:\Users\User\source\repos\TravelApp\Resources\dypexamarea.pdf";
                 }
                 ));
         }
@@ -84,8 +84,7 @@ namespace TravelApp.ViewModels
             if (browser != null)
             {
                 string uri = e.NewValue as string;
-                var nUri = new Uri(@"C:\Users\Zaka_oz49\Downloads\WPF_urok.pdf");
-                browser.Source = nUri; //!String.IsNullOrEmpty(uri) ? new Uri(uri) : null;
+                browser.Source = !String.IsNullOrEmpty(uri) ? new Uri(uri) : null;
             }
         }
 
