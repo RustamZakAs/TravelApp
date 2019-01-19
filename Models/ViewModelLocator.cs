@@ -61,7 +61,8 @@ namespace TravelApp
             //myNavigationService.Register("Registration", registrationViewModel);
 
             //myNavigationService.Navigate<LogInViewModel>();
-            myNavigationService.Navigate<IntroViewModel>();
+            //myNavigationService.Navigate<IntroViewModel>();
+            myNavigationService.Navigate<TicketsPDFViewModel>();
 
             //myNavigationService.Navigate("LogIn");
         }

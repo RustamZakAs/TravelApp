@@ -37,6 +37,31 @@ namespace Whush.Demo.Styles.CustomizedWindow
         }
     }
 
+    //internal static class LocalExtensionsControl
+    //{
+    //    public static void ForWindowFromChild(this object childDependencyObject, Action<Control> action)
+    //    {
+    //        var element = childDependencyObject as DependencyObject;
+    //        while (element != null)
+    //        {
+    //            element = VisualTreeHelper.GetParent(element);
+    //            if (element is Control) { action(element as Control); break; }
+    //        }
+    //    }
+
+    //    public static void ForWindowFromTemplate(this object templateFrameworkElement, Action<Control> action)
+    //    {
+    //        Control window = ((FrameworkElement)templateFrameworkElement).TemplatedParent as Control;
+    //        if (window != null) action(window);
+    //    }
+
+    //    public static IntPtr GetWindowHandle(this Window window)
+    //    {
+    //        WindowInteropHelper helper = new WindowInteropHelper(window);
+    //        return helper.Handle;
+    //    }
+    //}
+
     public partial class VS2012WindowStyle
     {
         #region sizing event handlers

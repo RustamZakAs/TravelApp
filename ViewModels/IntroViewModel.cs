@@ -43,7 +43,7 @@ namespace TravelApp.ViewModels
         {
             Task.Run(() =>
             {
-                Thread.Sleep(13700);
+                Thread.Sleep(13650);
                 navigation.Navigate<LogInViewModel>();
             });
             timer.Stop();
