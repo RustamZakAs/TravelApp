@@ -82,9 +82,9 @@ namespace TravelApp.ViewModels
             {
                 var tr = nc.Content;
                 //SelectedTrip = TripList[TripList.Count - 1];
-                if (TripList[TripList.Count - 1].CityInfo == null)
-                    TripList[TripList.Count - 1].CityInfo = new ObservableCollection<CityInfo>();
-                TripList[TripList.Count - 1].CityInfo.Add(tr);
+                if (SelectedTrip.CityInfo == null)
+                    SelectedTrip.CityInfo = new ObservableCollection<CityInfo>();
+                SelectedTrip.CityInfo.Add(tr);
                 //if (tr != null)
                 //{
                 //    //TripList.Where(x => x == this.SelectedTrip).First().CityInfo.Add(tr);

@@ -98,7 +98,8 @@
                                     <TextBox Text="{Binding Name}" FontWeight="Bold"/>
                                 </DockPanel>
                                 <ListBox ItemsSource="{Binding CityInfo}" 
-                                         SelectedItem="{Binding SelectedCity}"
+                                         SelectedItem="{Binding DataContext.SelectedCity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                        
                                              Grid.Column="0" Grid.Row="1" 
                                              Grid.ColumnSpan="3" 
                                              Grid.RowSpan="3">
