@@ -65,7 +65,7 @@ namespace TravelApp.ViewModels
 
             Messenger.Default.Register<NotificationMessage<CityInfo>>(this, OnHitIt);
 
-            Messenger.Default.Register<MenyuMessage>(this,
+            Messenger.Default.Register<TripsMessage>(this,
                msg =>
                {
                    UserNick = msg.UserNick;
@@ -168,7 +168,11 @@ namespace TravelApp.ViewModels
             get => weatherCommand ?? (weatherCommand = new RelayCommand(
                  () =>
                  {
-                     navigation.Navigate<WeatherViewModel>();
+                     if (SelectedCity != null && !String.IsNullOrWhiteSpace(SelectedCity.name))
+                     {
+                         Messenger.Default.Send(new WeatherMessage { UserNick = UserNick, City = SelectedCity.name, Back = this });
+                         navigation.Navigate<WeatherViewModel>();
+                     }
                  }
                  ));
         }

@@ -40,4 +40,19 @@ namespace TravelApp
             return ((DateTime)value).ToString("dd.MM.yyyy");
         }
     }
+
+    class DateDoubleToDateTimeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            DateTime date = new DateTime();
+            date = DateTime.FromOADate((double)value);
+            return date;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((DateTime)value).ToOADate();
+        }
+    }
 }

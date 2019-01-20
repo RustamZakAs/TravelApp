@@ -16,14 +16,17 @@ namespace TravelApp.ViewModels
 {
     class CitiesViewModel : ViewModelBase
     {
+        private string userNick;
+        public string UserNick { get => userNick; set => Set(ref userNick, value); }
+
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+
         private ObservableCollection<CityInfo> cityList;
         public ObservableCollection<CityInfo> CityList { get => cityList; set => Set(ref cityList, value); }
 
         private ObservableCollection<CityInfo> searchCityList;
         public ObservableCollection<CityInfo> SearchCityList { get => searchCityList; set => Set(ref searchCityList, value); }
-
-        private ViewModelBase back;
-        public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
         private CityInfo selectedCity;
         public CityInfo SelectedCity
@@ -77,6 +80,13 @@ namespace TravelApp.ViewModels
             City city = new City();
             SearchCityList = CityList = city.CityList;
             //MessageBox.Show(CityList[1].name);
+
+            Messenger.Default.Register<CityMessage>(this,
+              msg =>
+              {
+                  UserNick = msg.UserNick;
+                  Back = msg.Back;
+              });
         }
 
         private ObservableCollection<CityInfo> MySearch(ObservableCollection<CityInfo> cities, string value, bool isMany = false)

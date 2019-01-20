@@ -391,6 +391,7 @@
     <Compile Include="Messages\TicketsPDFMessage.cs" />
     <Compile Include="Messages\WeatherMessage.cs" />
     <Compile Include="Models\CityImage.cs" />
+    <Compile Include="Models\Ip.cs" />
     <Compile Include="Models\Trip.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -593,6 +594,9 @@
     <Resource Include="Resources\empty_image.png" />
     <Resource Include="Resources\TicketPdf.jpg" />
     <Resource Include="Resources\Map.png" />
+    <Content Include="Resources\CutIntroMobile.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="System.Device.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -605,14 +609,6 @@
     <Resource Include="Resources\point_marker.png" />
     <Resource Include="Resources\search.png" />
     <Content Include="Resources\Sound_20015.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\IntroPhoneMini.mp4" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\IntroPhone.avi">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

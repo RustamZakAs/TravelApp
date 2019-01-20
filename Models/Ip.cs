@@ -1,0 +1,150 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace TravelApp.Models
+{
+    class Ip
+    {
+        #region ip
+        static IPAddress getInternetIPAddress()
+        {
+            try
+            {
+                IPAddress[] addresses = Dns.GetHostAddresses(Dns.GetHostName());
+                IPAddress gateway = IPAddress.Parse(getInternetGateway());
+                return findMatch(addresses, gateway);
+            }
+            catch (FormatException e) { return null; }
+        }
+
+        static string getInternetGateway()
+        {
+            using (Process tracert = new Process())
+            {
+                ProcessStartInfo startInfo = tracert.StartInfo;
+                startInfo.FileName = "tracert.exe";
+                startInfo.Arguments = "-h 1 208.77.188.166"; // www.example.com
+                startInfo.UseShellExecute = false;
+                startInfo.RedirectStandardOutput = true;
+                tracert.Start();
+
+                using (StreamReader reader = tracert.StandardOutput)
+                {
+                    string line = "";
+                    for (int i = 0; i < 9; ++i)
+                        line = reader.ReadLine();
+                    line = line.Trim();
+                    return line.Substring(line.LastIndexOf(' ') + 1);
+                }
+            }
+        }
+
+        static IPAddress findMatch(IPAddress[] addresses, IPAddress gateway)
+        {
+            byte[] gatewayBytes = gateway.GetAddressBytes();
+            foreach (IPAddress ip in addresses)
+            {
+                byte[] ipBytes = ip.GetAddressBytes();
+                if (ipBytes[0] == gatewayBytes[0]
+                    && ipBytes[1] == gatewayBytes[1]
+                    && ipBytes[2] == gatewayBytes[2])
+                {
+                    return ip;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        public static string GetIP()
+        {
+            WebClient wc = new WebClient();
+            string strIP = wc.DownloadString("http://checkip.dyndns.org");
+            strIP = (new Regex(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b")).Match(strIP).Value;
+            wc.Dispose();
+            return strIP;
+        }
+
+        public static string LocaIp()
+        {
+            string localIP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                localIP = endPoint.Address.ToString();
+            }
+            return localIP;
+        }
+
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
+
+        public static string GetUserCountryByIp(string ip)
+        {
+            IpInfo ipInfo = new IpInfo();
+            try
+            {
+                string info = new WebClient().DownloadString("http://ipinfo.io/" + ip);
+                ipInfo = JsonConvert.DeserializeObject<IpInfo>(info);
+                RegionInfo myRI1 = new RegionInfo(ipInfo.Country);
+                ipInfo.Country = myRI1.EnglishName;
+            }
+            catch (Exception)
+            {
+                ipInfo.Country = null;
+            }
+
+            return ipInfo.Country;
+        }
+    }
+
+    public class IpInfo
+    {
+
+        [JsonProperty("ip")]
+        public string Ip { get; set; }
+
+        [JsonProperty("hostname")]
+        public string Hostname { get; set; }
+
+        [JsonProperty("city")]
+        public string City { get; set; }
+
+        [JsonProperty("region")]
+        public string Region { get; set; }
+
+        [JsonProperty("country")]
+        public string Country { get; set; }
+
+        [JsonProperty("loc")]
+        public string Loc { get; set; }
+
+        [JsonProperty("org")]
+        public string Org { get; set; }
+
+        [JsonProperty("postal")]
+        public string Postal { get; set; }
+    }
+}

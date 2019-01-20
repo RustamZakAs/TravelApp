@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TravelApp.Messages;
 using TravelApp.Services;
 using TravelApp.Views;
 
@@ -31,11 +32,12 @@ namespace TravelApp.ViewModels
 
             PathPDF = @"C:\Users\User\source\repos\TravelApp\Resources\dypexamarea.pdf";
 
-            //Messenger.Default.Register<string>(this,
-            //    msg =>
-            //    {
-            //        UserNick = msg;
-            //    });
+            Messenger.Default.Register<TicketsPDFMessage>(this,
+                msg =>
+                {
+                    UserNick = msg.UserNick;
+                    Back = msg.Back;
+                });
         }
 
         private RelayCommand backCommand;

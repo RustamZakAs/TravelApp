@@ -10,6 +10,7 @@ namespace TravelApp.Messages
     class WeatherMessage
     {
         public string UserNick { get; set; }
+        public string City { get; set; }
         public ViewModelBase Back { get; set; }
     }
 }

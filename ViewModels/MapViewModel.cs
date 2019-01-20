@@ -55,10 +55,11 @@ namespace TravelApp.ViewModels
             Locations.Add(mapLocation1);
 
 
-            Messenger.Default.Register<MenyuMessage>(this,
+            Messenger.Default.Register<MapMessage>(this,
                msg =>
                {
                    UserNick = msg.UserNick;
+                   Back = msg.Back;
                });
         }
 

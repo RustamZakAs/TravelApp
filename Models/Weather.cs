@@ -175,7 +175,7 @@ namespace TravelApp
         public string APIKey { get; set; }
         public string CityName { get; set; }
 
-        public int day { get; set; } = 5;
+        public int day { get; set; } = 15;
 
         public Weather()
         {
@@ -217,24 +217,56 @@ namespace TravelApp
         public weatherForcast.Root GetForcast(string city)
         {
             string url = String.Format("http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&cnt={1}&appid={2}", city, day, APIKey);
-
             using (WebClient web = new WebClient())
             {
                 try
                 {
                     string json = web.DownloadString(url);
-
-                    var Object = JsonConvert.DeserializeObject<weatherForcast.Root>(json);
-
-                    weatherForcast.Root outPut = Object;
-
-                    return outPut;
+                    weatherForcast.Root Object = JsonConvert.DeserializeObject<weatherForcast.Root>(json);
+                    return Object;
                 }
                 catch (Exception)
                 {
                     return null;
                 }
             }
+        }
+    }
+
+    class WeatherShow : INotifyPropertyChanged
+    {
+        private string cityName;
+        public string CityName { get => cityName; set => Set(ref cityName, value); }
+
+        private string country;
+        public string Country { get => country; set => Set(ref country, value); }
+
+        private string dateTime;
+        public string DateTime { get => dateTime; set => Set(ref dateTime, value); }
+
+        private string temp;
+        public string Temp { get => temp; set => Set(ref temp, value); }
+
+        private string image;
+        public string Image { get => image; set => Set(ref image, value); }
+
+        private string condition;
+        public string Condition { get => condition; set => Set(ref condition, value); }
+
+        private string discription;
+        public string Discription { get => discription; set => Set(ref discription, value); }
+
+        private string temp2;
+        public string Temp2 { get => temp2; set => Set(ref temp2, value); }
+
+        private string windSpeed;
+        public string WindSpeed { get => windSpeed; set => Set(ref windSpeed, value); }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void Set<T>(ref T field, T value, [System.Runtime.CompilerServices.CallerMemberName]string prop = "")
+        {
+            field = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
