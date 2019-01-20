@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,14 +11,25 @@ using System.Threading.Tasks;
 
 namespace TravelApp
 {
-    public class CityInfo
+    public class CityInfo : INotifyPropertyChanged
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string country { get; set; }
-        public coord coord { get; set; }
-        public string imageMobile { get; set; }
-        public string imageWeb { get; set; }
+        private int _id;
+        public int id { get => _id; set => Set(ref _id, value); }
+
+        private string _name;
+        public string name { get => _name; set => Set(ref _name, value); }
+
+        private string _country;
+        public string country { get => _country; set => Set(ref _country, value); }
+
+        private coord _coord;
+        public coord coord { get => _coord; set => Set(ref _coord, value); }
+
+        private string _imageMobile;
+        public string imageMobile { get => _imageMobile; set => Set(ref _imageMobile, value); }
+
+        private string _imageWeb;
+        public string imageWeb { get => _imageWeb; set => Set(ref _imageWeb, value); }
 
         public CityInfo()
         {
@@ -28,17 +40,34 @@ namespace TravelApp
             imageMobile = @"/Resources/empty_image.png";
             imageWeb = @"/Resources/empty_image.png";
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void Set<T>(ref T field, T value, [System.Runtime.CompilerServices.CallerMemberName]string prop = "")
+        {
+            field = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
     }
 
-    public class coord
+    public class coord : INotifyPropertyChanged
     {
-        public double lat { get; set; }
-        public double lon { get; set; }
+        private double _lat;
+        public double lat { get => _lat; set => Set(ref _lat, value); }
+
+        private double _lon;
+        public double lon { get => _lon; set => Set(ref _lon, value); }
 
         public coord()
         {
             lat = 0;
             lon = 0;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void Set<T>(ref T field, T value, [System.Runtime.CompilerServices.CallerMemberName]string prop = "")
+        {
+            field = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 

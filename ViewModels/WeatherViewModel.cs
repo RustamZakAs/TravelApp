@@ -13,13 +13,13 @@ namespace TravelApp.ViewModels
 {
     class WeatherViewModel : ViewModelBase
     {
-        //private ViewModelBase back;
-        //public ViewModelBase Back { get => back; set => Set(ref back, value); }
-
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
-        private string city = "Moscow";
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+        
+        private string city;
         public string City { get => city; set => Set(ref city, value); }
 
         private string cityName;
@@ -58,18 +58,19 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
 
+            City = "Baku";
             ViewWeather(City);
         }
 
-        private RelayCommand _BackCommand;
+        private RelayCommand backCommand;
         public RelayCommand BackCommand
         {
-            get => _BackCommand ?? (_BackCommand = new RelayCommand(
-                 () =>
-                 {
-                     navigation.Navigate<MenyuViewModel>();
-                 }
-                 ));
+            get => backCommand ?? (backCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate(Back.GetType());
+                }
+                ));
         }
 
         private RelayCommand _WeatherOkCommand;

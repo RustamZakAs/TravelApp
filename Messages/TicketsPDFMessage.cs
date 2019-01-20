@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace TravelApp.Messages
 {
-    class CityMessage
+    class TicketsPDFMessage
     {
         public string UserNick { get; set; }
-        public CityInfo CityInfo { get; set; }
         public ViewModelBase Back { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+
         private Microsoft.Maps.MapControl.WPF.Location mapCenter;
         public Microsoft.Maps.MapControl.WPF.Location MapCenter { get => mapCenter; set => Set(ref mapCenter, value); }
 
@@ -63,11 +66,11 @@ namespace TravelApp.ViewModels
         public RelayCommand BackCommand
         {
             get => backCommand ?? (backCommand = new RelayCommand(
-                 () =>
-                 {
-                     navigation.Navigate<MenyuViewModel>();
-                 }
-                 ));
+                () =>
+                {
+                    navigation.Navigate(Back.GetType());
+                }
+                ));
         }
 
         public override string ToString()

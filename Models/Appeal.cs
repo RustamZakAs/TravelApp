@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TravelApp.Models
 {
-    public class Appeal
+    public class Appeal : INotifyPropertyChanged
     {
-        public string appeal { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void Set<T>(ref T field, T value, [System.Runtime.CompilerServices.CallerMemberName]string prop = "")
+        {
+            field = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        private string _appeal;
+        public string appeal { get => _appeal; set => Set(ref _appeal, value); }
 
         public Appeal()
         {

@@ -21,7 +21,6 @@ namespace TravelApp.ViewModels
         }
 
         private readonly IMyNavigationService navigator;
-
         public AppViewModel(IMyNavigationService navigation)
         {
             this.navigator = navigation;

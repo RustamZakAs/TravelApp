@@ -22,6 +22,9 @@ namespace TravelApp.ViewModels
         private ObservableCollection<CityInfo> searchCityList;
         public ObservableCollection<CityInfo> SearchCityList { get => searchCityList; set => Set(ref searchCityList, value); }
 
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+
         private CityInfo selectedCity;
         public CityInfo SelectedCity
         {
@@ -60,7 +63,7 @@ namespace TravelApp.ViewModels
             set
             {
                 Set(ref searchText, value);
-                SearchCityList = MySearch(CityList, value, true);
+                SearchCityList = MySearch(CityList, value, false);
             }
         }
 
@@ -101,9 +104,13 @@ namespace TravelApp.ViewModels
                 else
                 {
                     var linqResults = from city in cities
-                                      where city.country.Contains(value) ||
-                                      city.name.Contains(value)
+                                      where city.country.ToLower().Contains(value.ToString()) ||
+                                      city.name.ToLower().Contains(value.ToLower())
                                       select city;
+                    //var linqResults = from city in cities
+                    //                  where city.country.Contains(value) ||
+                    //                  city.name.Contains(value)
+                    //                  select city;
                     return new ObservableCollection<CityInfo>(linqResults);
                 }
             }
@@ -114,11 +121,11 @@ namespace TravelApp.ViewModels
         public RelayCommand BackCommand
         {
             get => backCommand ?? (backCommand = new RelayCommand(
-                 () =>
-                 {
-                     navigation.Navigate<MenyuViewModel>();
-                 }
-                 ));
+                () =>
+                {
+                    navigation.Navigate(Back.GetType());
+                }
+                ));
         }
 
         private RelayCommand selectCommand;

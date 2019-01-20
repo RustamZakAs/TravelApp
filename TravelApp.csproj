@@ -387,6 +387,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\CityMessage.cs" />
+    <Compile Include="Messages\MapMessage.cs" />
+    <Compile Include="Messages\TicketsPDFMessage.cs" />
+    <Compile Include="Messages\WeatherMessage.cs" />
     <Compile Include="Models\CityImage.cs" />
     <Compile Include="Models\Trip.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -588,6 +591,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\empty_image.png" />
+    <Resource Include="Resources\TicketPdf.jpg" />
+    <Resource Include="Resources\Map.png" />
     <Content Include="System.Device.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

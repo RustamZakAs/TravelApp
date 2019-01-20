@@ -16,8 +16,8 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
-        //private ViewModelBase back;
-        //public ViewModelBase Back { get => back; set => Set(ref back, value); }
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
         private readonly IMyNavigationService navigation;
 
@@ -29,6 +29,7 @@ namespace TravelApp.ViewModels
                 msg =>
                 {
                     UserNick = msg.UserNick;
+                    Back = msg.Back;
                 });
         }
         
@@ -38,7 +39,7 @@ namespace TravelApp.ViewModels
             get => weatherCommand ?? (weatherCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(UserNick);
+                    Messenger.Default.Send(new WeatherMessage { UserNick = UserNick, Back = this });
                     navigation.Navigate<WeatherViewModel>();
                 }
                 ));
@@ -50,20 +51,8 @@ namespace TravelApp.ViewModels
             get => tripsCommand ?? (tripsCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(UserNick);
+                    Messenger.Default.Send(new TripsMessage { UserNick = UserNick, Back = this });
                     navigation.Navigate<TripsViewModel>();
-                }
-                ));
-        }
-
-        private RelayCommand backCommand;
-        public RelayCommand BackCommand
-        {
-            get => backCommand ?? (backCommand = new RelayCommand(
-                () =>
-                {
-                    Messenger.Default.Send(UserNick);
-                    navigation.Navigate<LogInViewModel>();
                 }
                 ));
         }
@@ -74,7 +63,7 @@ namespace TravelApp.ViewModels
             get => citiesCommand ?? (citiesCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(UserNick);
+                    Messenger.Default.Send(new CityMessage { UserNick = UserNick, Back = this });
                     navigation.Navigate<CitiesViewModel>();
                 }
                 ));
@@ -86,7 +75,7 @@ namespace TravelApp.ViewModels
             get => ticketsPDFCommand ?? (ticketsPDFCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(UserNick);
+                    Messenger.Default.Send(new CityMessage { UserNick = UserNick, Back = this });
                     navigation.Navigate<TicketsPDFViewModel>();
                 }
                 ));
@@ -98,9 +87,19 @@ namespace TravelApp.ViewModels
             get => mapCommand ?? (mapCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(UserNick);
-                    Messenger.Default.Send(new MenyuMessage { UserNick = UserNick });
+                    Messenger.Default.Send(new MapMessage { UserNick = UserNick, Back = this });
                     navigation.Navigate<MapViewModel>();
+                }
+                ));
+        }
+
+        private RelayCommand backCommand;
+        public RelayCommand BackCommand
+        {
+            get => backCommand ?? (backCommand = new RelayCommand(
+                () =>
+                {
+                    navigation.Navigate(Back.GetType());
                 }
                 ));
         }

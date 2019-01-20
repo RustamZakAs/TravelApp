@@ -16,6 +16,9 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+
         private readonly IMyNavigationService navigation;
         public SearchInfoViewModel(IMyNavigationService navigation)
         {
@@ -32,11 +35,11 @@ namespace TravelApp.ViewModels
         public RelayCommand BackCommand
         {
             get => backCommand ?? (backCommand = new RelayCommand(
-                 () =>
-                 {
-                     navigation.Navigate<MenyuViewModel>();
-                 }
-                 ));
+                () =>
+                {
+                    navigation.Navigate(Back.GetType());
+                }
+                ));
         }
     }
 }
