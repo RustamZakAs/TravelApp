@@ -23,7 +23,7 @@ namespace TravelApp.ViewModels
         private Microsoft.Maps.MapControl.WPF.Location mapCenter;
         public Microsoft.Maps.MapControl.WPF.Location MapCenter { get => mapCenter; set => Set(ref mapCenter, value); }
 
-        public ObservableCollection<MapLocation> Locations { get; private set; } = new ObservableCollection<MapLocation>();
+        //public ObservableCollection<MapLocation> Locations { get; private set; } = new ObservableCollection<MapLocation>();
 
         private readonly IMyNavigationService navigation;
         public MapViewModel(IMyNavigationService navigation)
@@ -37,29 +37,29 @@ namespace TravelApp.ViewModels
 
             MapCenter = location;
 
-            MapLocation mapLocation = new MapLocation();
-            mapLocation.Location.Latitude = 40.414898;
-            mapLocation.Location.Longitude = 49.853107;
+            //MapLocation mapLocation = new MapLocation();
+            //mapLocation.Location.Latitude = 40.414898;
+            //mapLocation.Location.Longitude = 49.853107;
 
-            MapLocation mapLocation1 = new MapLocation();
-            mapLocation1.Location.Latitude = 40.414898;
-            mapLocation1.Location.Longitude = 48.853107;
+            //MapLocation mapLocation1 = new MapLocation();
+            //mapLocation1.Location.Latitude = 40.414898;
+            //mapLocation1.Location.Longitude = 48.853107;
             //mapLocation.Location.Altitude = 40.00;
             //mapLocation.Location.Course = 0;
             //mapLocation.Location.HorizontalAccuracy = 1;
             //mapLocation.Location.VerticalAccuracy = 1;
             //mapLocation.Location.Speed = 10;
-            mapLocation.Name = "IT STEP Academy";
-            mapLocation1.Name = "IT STEP Academy 1";
-            Locations.Add(mapLocation);
-            Locations.Add(mapLocation1);
-
+            //mapLocation.Name = "IT STEP Academy";
+            //mapLocation1.Name = "IT STEP Academy 1";
+            //Locations.Add(mapLocation);
+            //Locations.Add(mapLocation1);
 
             Messenger.Default.Register<MapMessage>(this,
                msg =>
                {
                    UserNick = msg.UserNick;
                    Back = msg.Back;
+                   MapCenter = msg.MapCenter;
                });
         }
 
@@ -80,13 +80,13 @@ namespace TravelApp.ViewModels
         }
     }
 
-    public class MapLocation
-    {
-        public MapLocation()
-        {
-            Location = new System.Device.Location.GeoCoordinate();
-        }
-        public System.Device.Location.GeoCoordinate Location { get; set; }
-        public string Name { get; set; }
-    }
+    //public class MapLocation
+    //{
+    //    public MapLocation()
+    //    {
+    //        Location = new System.Device.Location.GeoCoordinate();
+    //    }
+    //    public System.Device.Location.GeoCoordinate Location { get; set; }
+    //    public string Name { get; set; }
+    //}
 }

@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace TravelApp.Messages
 {
-    class RegistrationMessage
+    class SearchInfoMessage
     {
         public string UserNick { get; set; }
-        public string UserEmail { get; set; }
-        public string UserName { get; set; }
-        public string UserSurname { get; set; }
-        public string UserPassword { get; set; }
+        public CityInfo CityInfo { get; set; }
         public GalaSoft.MvvmLight.ViewModelBase Back { get; set; }
     }
 }

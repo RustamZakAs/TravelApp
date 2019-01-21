@@ -11,6 +11,8 @@ using TravelApp.Messages;
 using TravelApp.Services;
 using System.Media;
 using System.IO;
+using System.Text.RegularExpressions;
+using TravelApp.Models;
 
 namespace TravelApp.ViewModels
 {
@@ -18,6 +20,9 @@ namespace TravelApp.ViewModels
     {
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
+
+        private string userPass;
+        public string UserPass { get => userPass; set => Set(ref userPass, value); }
 
         private string userImage = "/TravelApp;component/Resources/empty_user.png";
         public string UserImage { get => userImage; set => Set(ref userImage, value); }
@@ -31,19 +36,18 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
 
+            UserNick = "RustamZakAs";
             //SQLiteDatabase _SQLiteDatabase = new SQLiteDatabase();
         }
 
-        private RelayCommand sendCommand;
-        public RelayCommand SendCommand
+        private MyRelayCommand sendCommand;
+        public MyRelayCommand SendCommand
         {
-            get => sendCommand ?? (sendCommand = new RelayCommand(
-                () =>
+            get => sendCommand ?? (sendCommand = new MyRelayCommand(
+                param =>
                 {
                     Messenger.Default.Send(new MenyuMessage { UserNick = UserNick, Back = this });
-
                     navigation.Navigate<MenyuViewModel>();
-
                     Task.Run(() =>
                     {
                         string file = @"\Resources\Sound_20015.wav";
@@ -54,7 +58,8 @@ namespace TravelApp.ViewModels
                             my_wave_file.PlaySync(); //PlaySync means that once sound start then no other activity if form will occur untill sound goes to finish
                         }
                     });
-                }
+                },
+                param => (!String.IsNullOrWhiteSpace(UserNick))
                 ));
         }
 
@@ -64,14 +69,26 @@ namespace TravelApp.ViewModels
             get => registrationCommand ?? (registrationCommand = new RelayCommand(
                 () =>
                 {
-                    if (UserNick != null && (UserNick.Contains('@') && UserNick.Contains('.')))
-                        Messenger.Default.Send(new RegistrationMessage { UserEmail = UserNick });
+                    if ( UserNick != null && isValidEmail(UserNick) )
+                        Messenger.Default.Send(new RegistrationMessage { UserEmail = UserNick, Back = this });
                     else
-                        Messenger.Default.Send(new RegistrationMessage { UserNick = UserNick });
+                        Messenger.Default.Send(new RegistrationMessage { UserNick = UserNick, Back = this });
 
                     navigation.Navigate<RegistrationViewModel>();
                 }
                 ));
+        }
+
+        public static bool isValidEmail(string inputEmail)
+        {
+            string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+            Regex re = new Regex(strRegex);
+            if (re.IsMatch(inputEmail))
+                return (true);
+            else
+                return (false);
         }
 
         private RelayCommand closeCommand;
@@ -91,7 +108,7 @@ namespace TravelApp.ViewModels
             get => forgotPassCommand ?? (forgotPassCommand = new RelayCommand(
                 () =>
                 {
-                    MessageBox.Show("Не забывал бы! ");
+                    MessageBox.Show("Не забывал(а) бы! ");
                 }
                 ));
         }

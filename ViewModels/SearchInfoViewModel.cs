@@ -19,15 +19,20 @@ namespace TravelApp.ViewModels
         private ViewModelBase back;
         public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
+        private CityInfo selectedCity;
+        public CityInfo SelectedCity { get => selectedCity; set => Set(ref selectedCity, value); }
+
         private readonly IMyNavigationService navigation;
         public SearchInfoViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
 
-            Messenger.Default.Register<MenyuMessage>(this,
+            Messenger.Default.Register<SearchInfoMessage>(this,
                msg =>
                {
                    UserNick = msg.UserNick;
+                   Back = msg.Back;
+                   SelectedCity = msg.CityInfo;
                });
         }
 

@@ -23,12 +23,11 @@ namespace TravelApp.ViewModels
     class RegistrationViewModel : ViewModelBase
     {
         //ApplicationContext db;
-
-        private RegistrationMessage regMessage = new RegistrationMessage();
-        public RegistrationMessage RegMessage { get => regMessage; set => Set(ref regMessage, value); }
-
         private string test;
         public string Test { get => test; set => Set(ref test, value); }
+
+        private string userNick;
+        public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
         private ObservableCollection<Appeal> appealList;
         public ObservableCollection<Appeal> AppealList { get => appealList; set => Set(ref appealList, value); }
@@ -49,7 +48,9 @@ namespace TravelApp.ViewModels
             Messenger.Default.Register<RegistrationMessage>(this,
                 msg =>
                 {
-                    RegMessage.UserNick = msg.UserNick;
+                    RegInfo.UserNick = msg.UserNick;
+                    RegInfo.UserEmail = msg.UserEmail;
+                    Back = msg.Back;
                 });
 
             AppealList = new Appeal().getList();

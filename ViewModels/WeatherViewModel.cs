@@ -42,11 +42,15 @@ namespace TravelApp.ViewModels
                {
                    UserNick = msg.UserNick;
                    City = msg.City;
+                   if (City != null && City.Length > 0)
+                   {
+                       if (this.WeatherOkCommand.CanExecute(null))
+                           this.WeatherOkCommand.Execute(null);
+                   }
                    Back = msg.Back;
                });
-
-            City = Ip.GetUserCountryByIp(Ip.GetIP());
-
+            //City = Ip.GetUserCountryByIp(Ip.GetIP());
+            City = Ip.GetUserCountryByIp();
             ViewWeather(City);
         }
 
@@ -70,10 +74,10 @@ namespace TravelApp.ViewModels
                      if (City == null || City.Length == 0) City = Ip.GetUserCountryByIp(Ip.GetIP());
                      try
                      {
-                         Task.Run(() =>
-                         {
-                             //ViewWeather(City);
-                         });
+                         //Task.Run(() =>
+                         //{
+                         //    //ViewWeather(City);
+                         //});
                      }
                      catch (Exception)
                      {

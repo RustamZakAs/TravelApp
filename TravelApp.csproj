@@ -388,6 +388,7 @@
     </ApplicationDefinition>
     <Compile Include="Messages\CityMessage.cs" />
     <Compile Include="Messages\MapMessage.cs" />
+    <Compile Include="Messages\SearchInfoMessage.cs" />
     <Compile Include="Messages\TicketsPDFMessage.cs" />
     <Compile Include="Messages\WeatherMessage.cs" />
     <Compile Include="Models\CityImage.cs" />

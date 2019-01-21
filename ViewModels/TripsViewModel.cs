@@ -19,6 +19,9 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+
         private ObservableCollection<Trip> tripList;
         public ObservableCollection<Trip> TripList { get => tripList; set => Set(ref tripList, value); }
 
@@ -28,14 +31,10 @@ namespace TravelApp.ViewModels
         private CityInfo selectedCity;
         public CityInfo SelectedCity { get => selectedCity; set => Set(ref selectedCity, value); }
 
-        private CityInfo inCityInfo;
-        public CityInfo InCityInfo { get => inCityInfo; set => Set(ref inCityInfo, value); }
-
-        private ViewModelBase back;
-        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+        //private CityInfo inCityInfo;
+        //public CityInfo InCityInfo { get => inCityInfo; set => Set(ref inCityInfo, value); }
 
         private readonly IMyNavigationService navigation;
-
         //public TripsViewModel(IMyNavigationService navigation)
         //{
         //    this.navigation = navigation;
@@ -157,7 +156,6 @@ namespace TravelApp.ViewModels
             get => okCommand ?? (okCommand = new RelayCommand(
                  () =>
                  {
-                     navigation.Navigate<MenyuViewModel>();
                  }
                  ));
         }
@@ -183,7 +181,15 @@ namespace TravelApp.ViewModels
             get => mapCommand ?? (mapCommand = new RelayCommand(
                  () =>
                  {
-                     navigation.Navigate<MapViewModel>();
+                     if (SelectedCity != null && !String.IsNullOrWhiteSpace(SelectedCity.name))
+                     {
+                         Microsoft.Maps.MapControl.WPF.Location MapCenter = new Microsoft.Maps.MapControl.WPF.Location();
+                         MapCenter.Latitude = SelectedCity.coord.lat;
+                         MapCenter.Longitude = SelectedCity.coord.lon;
+
+                         Messenger.Default.Send(new MapMessage { UserNick = UserNick, MapCenter = MapCenter, Back = this });
+                         navigation.Navigate<MapViewModel>();
+                     }
                  }
                  ));
         }
@@ -194,6 +200,7 @@ namespace TravelApp.ViewModels
             get => searchInfoCommand ?? (searchInfoCommand = new RelayCommand(
                  () =>
                  {
+                     Messenger.Default.Send(new SearchInfoMessage { UserNick = UserNick, CityInfo = SelectedCity, Back = this });
                      navigation.Navigate<SearchInfoViewModel>();
                  }
                  ));

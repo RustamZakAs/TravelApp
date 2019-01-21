@@ -16,30 +16,30 @@
         <Image Source="{Binding UserImage}" 
                Width="250" Height="250"/>
         <Label Content="User Nick or E-mail:" Background="Azure"/>
-        <TextBox Background="Red" FontSize="20" Text="{Binding UserNick}"/>
+        <TextBox Background="Red" FontSize="20" Text="{Binding UserNick, UpdateSourceTrigger=PropertyChanged}"/>
         <UniformGrid Columns="2" Rows="1">
             <Label Content="User Password:" Background="Azure"/>
             <!--<TextBlock Text="Forgot your password?" Background="Azure">-->
-            <TextBlock Background="Azure" VerticalAlignment="Stretch"><Hyperlink>
+            <TextBlock Background="Azure" VerticalAlignment="Stretch">
+                <Hyperlink Command="{Binding ForgotPassCommand}">
                     Forgot your password?
                 </Hyperlink>
-                <TextBlock.InputBindings>
+                <!--<TextBlock.InputBindings>
                     <MouseBinding Command="{Binding ForgotPassCommand}" MouseAction="LeftClick"/>
-                </TextBlock.InputBindings>
-            </TextBlock>
+                </TextBlock.InputBindings>-->
                 <!--</TextBlock>-->
             <!--<Label Content="Forgot your password?" Background="Azure"/>-->
+            </TextBlock>
         </UniformGrid>
-        <TextBox Background="Red" FontSize="20"/>
+        <TextBox Background="Red" FontSize="20" Text="{Binding UserPass, UpdateSourceTrigger=PropertyChanged}"/>
         <UniformGrid Columns="3" Rows="1">
-            <Button FontSize="14" Content="OK" 
+            <Button FontSize="14" Content="Okay" 
                     Command="{Binding SendCommand}" 
                     Style="{StaticResource InformButton}"
                     CommandParameter="Menyu"/>
             <Button FontSize="14" Content="Registration" 
                     Command="{Binding RegistrationCommand}" 
-                    Style="{StaticResource InformButton}"
-                    CommandParameter="{x:Type vm:RegistrationViewModel}"/>
+                    Style="{StaticResource InformButton}"/>
             <Button FontSize="14" Content="Close" 
                     Command="{Binding CloseCommand}" 
                     Style="{StaticResource InformButton}"

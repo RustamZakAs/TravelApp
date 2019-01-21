@@ -75,7 +75,7 @@ namespace TravelApp.ViewModels
             get => ticketsPDFCommand ?? (ticketsPDFCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new CityMessage { UserNick = UserNick, Back = this });
+                    Messenger.Default.Send(new TicketsPDFMessage { UserNick = UserNick, Back = this });
                     navigation.Navigate<TicketsPDFViewModel>();
                 }
                 ));

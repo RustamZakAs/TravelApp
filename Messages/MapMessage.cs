@@ -9,7 +9,8 @@ namespace TravelApp.Messages
 {
     class MapMessage
     {
-        public string UserNick { get; set; }
-        public ViewModelBase Back { get; set; }
+        public System.String UserNick { get; set; }
+        public GalaSoft.MvvmLight.ViewModelBase Back { get; set; }
+        public Microsoft.Maps.MapControl.WPF.Location MapCenter { get; set; }
     }
 }

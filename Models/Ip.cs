@@ -11,6 +11,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TravelApp.Models
 {
@@ -101,28 +102,54 @@ namespace TravelApp.Models
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
-        public static string GetUserCountryByIp(string ip)
+        public static string GetUserCity()
+        {
+            //WebBrowser web = new WebBrowser();
+            //web.Navigate(@"https://www.whatismyip.com/my-ip-information");
+            //string strIP = web.DocumentText;
+            //System.Windows.Forms.HtmlDocument document = web.Document;
+
+            WebClient wc = new WebClient();
+            string strIP = wc.DownloadString("https://www.whatismyip.com/my-ip-information/");
+            string find = "City: ";
+            for (int i = 0; i < strIP.Length - find.Length - 1; i++)
+            {
+                string b = strIP.Substring(i, find.Length);
+                if (b == find)
+                {
+                    string ostatok = strIP.Substring(i + find.Length, 100);
+                    return strIP.Substring(i, ostatok.Length);
+                }
+            }
+            wc.Dispose();
+            return strIP;
+        }
+
+        public static string GetUserCountryByIp(string ip = "")
         {
             IpInfo ipInfo = new IpInfo();
             try
             {
-                string info = new WebClient().DownloadString("http://ipinfo.io/" + ip);
+                string info;
+                //if (ip.Length != 0)
+                //    info = new WebClient().DownloadString("http://ipinfo.io/" + ip);
+                //else
+                    info = new WebClient().DownloadString("https://api.ipdata.co/?api-key=0b5fa0d7f2d1dd9346371d717dda7eec172039fdb5445ad860253faf");
                 ipInfo = JsonConvert.DeserializeObject<IpInfo>(info);
-                RegionInfo myRI1 = new RegionInfo(ipInfo.Country);
-                ipInfo.Country = myRI1.EnglishName;
+                //RegionInfo myRI1 = new RegionInfo(ipInfo.Country);
+                //ipInfo.Country = myRI1.EnglishName;
             }
             catch (Exception)
             {
-                ipInfo.Country = null;
+                //ipInfo.Country = null;
             }
-
-            return ipInfo.Country;
+            //return ipInfo.Country;
+            return ipInfo.City;
         }
     }
 
     public class IpInfo
     {
-
         [JsonProperty("ip")]
         public string Ip { get; set; }
 
