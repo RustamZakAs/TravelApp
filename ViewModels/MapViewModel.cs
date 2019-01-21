@@ -4,10 +4,12 @@ using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelApp.Messages;
+using TravelApp.Models;
 using TravelApp.Services;
 
 namespace TravelApp.ViewModels
@@ -23,36 +25,10 @@ namespace TravelApp.ViewModels
         private Microsoft.Maps.MapControl.WPF.Location mapCenter;
         public Microsoft.Maps.MapControl.WPF.Location MapCenter { get => mapCenter; set => Set(ref mapCenter, value); }
 
-        //public ObservableCollection<MapLocation> Locations { get; private set; } = new ObservableCollection<MapLocation>();
-
         private readonly IMyNavigationService navigation;
         public MapViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
-
-            Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location();
-            location.Latitude = 40.414898;
-            location.Longitude = 49.853107;
-            location.Altitude = 4000.00;
-
-            MapCenter = location;
-
-            //MapLocation mapLocation = new MapLocation();
-            //mapLocation.Location.Latitude = 40.414898;
-            //mapLocation.Location.Longitude = 49.853107;
-
-            //MapLocation mapLocation1 = new MapLocation();
-            //mapLocation1.Location.Latitude = 40.414898;
-            //mapLocation1.Location.Longitude = 48.853107;
-            //mapLocation.Location.Altitude = 40.00;
-            //mapLocation.Location.Course = 0;
-            //mapLocation.Location.HorizontalAccuracy = 1;
-            //mapLocation.Location.VerticalAccuracy = 1;
-            //mapLocation.Location.Speed = 10;
-            //mapLocation.Name = "IT STEP Academy";
-            //mapLocation1.Name = "IT STEP Academy 1";
-            //Locations.Add(mapLocation);
-            //Locations.Add(mapLocation1);
 
             Messenger.Default.Register<MapMessage>(this,
                msg =>
@@ -60,6 +36,13 @@ namespace TravelApp.ViewModels
                    UserNick = msg.UserNick;
                    Back = msg.Back;
                    MapCenter = msg.MapCenter;
+                   if (MapCenter == null)
+                   {
+                       IpInfo ipInfo = Ip.GetUserCountryByIp();
+                       MapCenter = new Microsoft.Maps.MapControl.WPF.Location();
+                       MapCenter.Latitude = ipInfo.Latitude;
+                       MapCenter.Longitude = ipInfo.Longitude;
+                   }
                });
         }
 
@@ -69,7 +52,7 @@ namespace TravelApp.ViewModels
             get => backCommand ?? (backCommand = new RelayCommand(
                 () =>
                 {
-                    navigation.Navigate(Back.GetType());
+                    navigation?.Navigate(Back.GetType());
                 }
                 ));
         }
@@ -80,13 +63,23 @@ namespace TravelApp.ViewModels
         }
     }
 
-    //public class MapLocation
-    //{
-    //    public MapLocation()
-    //    {
-    //        Location = new System.Device.Location.GeoCoordinate();
-    //    }
-    //    public System.Device.Location.GeoCoordinate Location { get; set; }
-    //    public string Name { get; set; }
-    //}
+    public class MapLocation : INotifyPropertyChanged
+    {
+        public MapLocation()
+        {
+            Location = new System.Device.Location.GeoCoordinate();
+        }
+        private string name;
+        public string Name { get => name; set => Set(ref name, value); }
+
+        private System.Device.Location.GeoCoordinate location;
+        public System.Device.Location.GeoCoordinate Location { get => location; set => Set(ref location, value); }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void Set<T>(ref T field, T value, [System.Runtime.CompilerServices.CallerMemberName]string prop = "")
+        {
+            field = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+    }
 }

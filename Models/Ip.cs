@@ -26,7 +26,7 @@ namespace TravelApp.Models
                 IPAddress gateway = IPAddress.Parse(getInternetGateway());
                 return findMatch(addresses, gateway);
             }
-            catch (FormatException e) { return null; }
+            catch (FormatException) { return null; }
         }
 
         static string getInternetGateway()
@@ -125,7 +125,7 @@ namespace TravelApp.Models
             return strIP;
         }
 
-        public static string GetUserCountryByIp(string ip = "")
+        public static IpInfo GetUserCountryByIp(string ip = "")
         {
             IpInfo ipInfo = new IpInfo();
             try
@@ -144,7 +144,7 @@ namespace TravelApp.Models
                 //ipInfo.Country = null;
             }
             //return ipInfo.Country;
-            return ipInfo.City;
+            return ipInfo;
         }
     }
 
@@ -173,5 +173,14 @@ namespace TravelApp.Models
 
         [JsonProperty("postal")]
         public string Postal { get; set; }
+
+        [JsonProperty("latitude")]
+        public double Latitude { get; set; }
+
+        [JsonProperty("longitude")]
+        public double Longitude { get; set; }
+
+        [JsonProperty("calling_code")]
+        public string Calling_code { get; set; }
     }
 }

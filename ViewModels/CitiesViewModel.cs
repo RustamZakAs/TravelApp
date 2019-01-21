@@ -28,6 +28,9 @@ namespace TravelApp.ViewModels
         private ObservableCollection<CityInfo> searchCityList;
         public ObservableCollection<CityInfo> SearchCityList { get => searchCityList; set => Set(ref searchCityList, value); }
 
+        private bool selectCity;
+        public bool SelectCity { get => selectCity; set => Set(ref selectCity, value); }
+
         private CityInfo selectedCity;
         public CityInfo SelectedCity
         {
@@ -54,7 +57,7 @@ namespace TravelApp.ViewModels
             }
         }
 
-        private string imagePath = @"https://d13k13wj6adfdf.cloudfront.net/urban_areas/baku-0aa6019508.jpg";
+        private string imagePath;// = @"https://d13k13wj6adfdf.cloudfront.net/urban_areas/baku-0aa6019508.jpg";
         public string ImagePath { get => imagePath; set => Set(ref imagePath, value); }
 
         public CityImage cityImages = new CityImage();
@@ -86,6 +89,12 @@ namespace TravelApp.ViewModels
               {
                   UserNick = msg.UserNick;
                   Back = msg.Back;
+                  SelectCity = msg.SelectCity;
+                  SelectedCity = msg.CityInfo;
+                  if (SelectedCity == null || SelectedCity.name == null)
+                  {
+                      SearchText = Ip.GetUserCountryByIp().City;
+                  }
               });
         }
 
@@ -133,7 +142,7 @@ namespace TravelApp.ViewModels
             get => backCommand ?? (backCommand = new RelayCommand(
                 () =>
                 {
-                    navigation.Navigate(Back.GetType());
+                    navigation?.Navigate(Back.GetType());
                 }
                 ));
         }

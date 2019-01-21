@@ -25,9 +25,13 @@ namespace TravelApp.ViewModels
 
         DispatcherTimer timer = new DispatcherTimer();
 
+        int introTime = 1;//6650;
+
         public IntroViewModel(IMyNavigationService navigation)
         {
             this.navigation = navigation;
+
+            
 
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
@@ -41,7 +45,7 @@ namespace TravelApp.ViewModels
         {
             Task.Run(() =>
             {
-                Thread.Sleep(6650);
+                Thread.Sleep(introTime);
                 navigation.Navigate<LogInViewModel>();
             });
             timer.Stop();

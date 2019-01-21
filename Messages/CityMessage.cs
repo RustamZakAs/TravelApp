@@ -10,6 +10,7 @@ namespace TravelApp.Messages
     {
         public string UserNick { get; set; }
         public CityInfo CityInfo { get; set; }
+        public bool SelectCity { get; set; }
         public GalaSoft.MvvmLight.ViewModelBase Back { get; set; }
     }
 }

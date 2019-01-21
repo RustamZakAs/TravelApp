@@ -42,7 +42,7 @@ namespace TravelApp.ViewModels
             get => backCommand ?? (backCommand = new RelayCommand(
                 () =>
                 {
-                    navigation.Navigate(Back.GetType());
+                    navigation?.Navigate(Back.GetType());
                 }
                 ));
         }

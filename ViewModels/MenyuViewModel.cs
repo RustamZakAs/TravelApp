@@ -87,7 +87,7 @@ namespace TravelApp.ViewModels
             get => mapCommand ?? (mapCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new MapMessage { UserNick = UserNick, Back = this });
+                    Messenger.Default.Send(new MapMessage { UserNick = UserNick, MapCenter = null, Back = this });
                     navigation.Navigate<MapViewModel>();
                 }
                 ));
@@ -99,7 +99,7 @@ namespace TravelApp.ViewModels
             get => backCommand ?? (backCommand = new RelayCommand(
                 () =>
                 {
-                    navigation.Navigate(Back.GetType());
+                    navigation?.Navigate(Back.GetType());
                 }
                 ));
         }

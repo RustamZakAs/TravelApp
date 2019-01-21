@@ -5,9 +5,12 @@
              xmlns:vm="clr-namespace:TravelApp.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Name="CityForm"
              d:DataContext="{d:DesignInstance vm:CitiesViewModel}"
              d:DesignHeight="450" d:DesignWidth="400">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="55"></RowDefinition>
@@ -37,45 +40,58 @@
                HorizontalAlignment="Center" FontStyle="Italic" 
                Foreground="#FF780909" FontWeight="Bold" Content="{Binding UserNick}"/>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="1" 
+        <DockPanel Grid.Column="0" Grid.Row="1" 
                     Grid.ColumnSpan="3" 
                     Grid.RowSpan="3">
-            <StackPanel.Background>
+            <DockPanel.Background>
                 <ImageBrush ImageSource="{Binding ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            </StackPanel.Background>
+            </DockPanel.Background>
             <TextBox DockPanel.Dock="Top" 
                          Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Background="Yellow"/>
-            <ListBox x:Name="listView"
-                         Height="350"
+            <ListBox x:Name="listView" 
                          ItemsSource="{Binding SearchCityList}"
                          SelectedItem="{Binding Path=SelectedCity}" Background="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel>
                             <WrapPanel>
-                                <TextBlock Text="Name: " />
-                                <TextBlock Text="{Binding name}" FontWeight="Bold" />
-                                <TextBlock Text=", " />
-                                <TextBlock Text="Country: " />
-                                <TextBlock Text="{Binding country}" FontWeight="Bold" />
-                                <TextBlock Text=" (" />
-                                <TextBlock Text="{Binding coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                <TextBlock Text="Name: "/>
+                                <TextBlock Text="{Binding name}" FontWeight="Bold"/>
+                                <TextBlock Text=", "/>
+                                <TextBlock Text="Country: "/>
+                                <TextBlock Text="{Binding country}" FontWeight="Bold"/>
+                                <TextBlock Text=" ("/>
+                                <TextBlock Text="{Binding coord.lat}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand"/>
                                 <TextBlock Text=" ; "></TextBlock>
-                                <TextBlock Text="{Binding coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                                <TextBlock Text=")" />
+                                <TextBlock Text="{Binding coord.lon}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand"/>
+                                <TextBlock Text=")"/>
                             </WrapPanel>
 
                         </DockPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </StackPanel>
+        </DockPanel>
         <UniformGrid Grid.Column="0" Grid.Row="3">
             <Button IsDefault="True" 
-                    Style="{StaticResource InformButton}" 
                     Content="Select" 
-                    Command="{Binding SelectCommand}"></Button>
+                    Style="{StaticResource InformButton}"
+                    Command="{Binding SelectCommand}"
+                    Cursor="Hand" Visibility="{Binding Path=SelectCity, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    >
+                    <!----> 
+                <!--<Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=CityForm, Path=SelectCity}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>-->
+            </Button>
         </UniformGrid>
         <UniformGrid Grid.Column="1" Grid.Row="3">
             

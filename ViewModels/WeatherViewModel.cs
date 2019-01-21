@@ -50,7 +50,7 @@ namespace TravelApp.ViewModels
                    Back = msg.Back;
                });
             //City = Ip.GetUserCountryByIp(Ip.GetIP());
-            City = Ip.GetUserCountryByIp();
+            City = Ip.GetUserCountryByIp().City;
             ViewWeather(City);
         }
 
@@ -60,7 +60,7 @@ namespace TravelApp.ViewModels
             get => backCommand ?? (backCommand = new RelayCommand(
                 () =>
                 {
-                    navigation.Navigate(Back.GetType());
+                    navigation?.Navigate(Back.GetType());
                 }
                 ));
         }
@@ -71,7 +71,8 @@ namespace TravelApp.ViewModels
             get => weatherOkCommand ?? (weatherOkCommand = new RelayCommand(
                  () =>
                  {
-                     if (City == null || City.Length == 0) City = Ip.GetUserCountryByIp(Ip.GetIP());
+                     if (City == null || City.Length == 0) City = Ip.GetUserCountryByIp().City;
+                     //City = Ip.GetUserCountryByIp(Ip.GetIP()).City;
                      try
                      {
                          //Task.Run(() =>

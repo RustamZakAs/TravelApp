@@ -112,7 +112,6 @@ namespace TravelApp.ViewModels
                      string s = String.Format(@"Trip {0}",TripList.Count + 1);
                      TripList.Add(new Trip(s));
                      
-
                      //navigation.Navigate<CitiesViewModel>();
                      //if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null) MessageBox.Show(SelectedTrip.CityInfo[0].name);
                  }
@@ -218,6 +217,7 @@ namespace TravelApp.ViewModels
                      //var selectedTrip = 
                      //var selectedCity = selectedTrip.CityInfo.Where(x => x == this.SelectedCity).First();
                      //selectedTrip.CityInfo.Add(new CityInfo());
+                     Messenger.Default.Send(new CityMessage { UserNick = UserNick, SelectCity = true, Back = this });
                      navigation.Navigate<CitiesViewModel>();
                      //if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null)
                      //    MessageBox.Show(SelectedTrip.CityInfo[0].name);
