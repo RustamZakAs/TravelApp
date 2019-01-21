@@ -16,13 +16,15 @@
                        Source="{Binding weather[0].iconPaht, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel DockPanel.Dock="Right">
                     <Label FontSize="10" Foreground="White" 
-                       Content="{Binding weather[0].main, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Label>
+                           Content="{Binding dt_txt, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label FontSize="10" Foreground="White" 
-                       Content="{Binding weather[0].description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Label>
+                           Content="{Binding weather[0].main, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label FontSize="10" Foreground="White" 
-                       Content="{Binding main.temp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Label>
+                           Content="{Binding weather[0].description, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label FontSize="10" Foreground="White" 
-                       Content="{Binding wind.speed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Label>
+                           Content="{Binding main.temp, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label FontSize="10" Foreground="White" 
+                           Content="{Binding wind.speed, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </DockPanel>
         </DataTemplate>
@@ -31,29 +33,33 @@
         <ImageBrush ImageSource="/TravelApp;component/Resources/night_weather.jpg" 
                     Stretch="UniformToFill"/>
     </UserControl.Background>
-    <DockPanel HorizontalAlignment="Center" 
-                VerticalAlignment="Center">
+    <DockPanel HorizontalAlignment="Stretch" 
+               VerticalAlignment="Center">
         <TextBox DockPanel.Dock="Top" Text="{Binding City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding Path=WeatherOkCommand}" Key="Enter" />
             </TextBox.InputBindings>
         </TextBox>
-        <Button DockPanel.Dock="Top" Content="OK" Command="{Binding WeatherOkCommand}"/>
+        <Button DockPanel.Dock="Top" Content="OK"
+                Style="{StaticResource InformButton}"
+                Command="{Binding WeatherOkCommand}"/>
         <UniformGrid DockPanel.Dock="Bottom">
             <Button Content="Back" 
+                    Style="{StaticResource InformButton}"
                     Command="{Binding BackCommand}"></Button>
         </UniformGrid>
         <DockPanel DockPanel.Dock="Top">
-            <Image DockPanel.Dock="Left" Height="100" 
-                           Source="{Binding Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Image DockPanel.Dock="Left" Height="80" 
+                   Source="{Binding BindWeather.Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <StackPanel DockPanel.Dock="Right">
-                <Label FontSize="10" Foreground="Red" 
-                               Content="{Binding CityName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label FontSize="10" Foreground="Red" 
-                               Content="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label FontSize="10" Foreground="Red" 
-                               Content="{Binding Temp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
+                <Label Foreground="Red" 
+                       Content="{Binding BindWeather.DateTime, UpdateSourceTrigger=PropertyChanged}"></Label>
+                <Label Foreground="Red" 
+                       Content="{Binding BindWeather.CityName, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Foreground="Red" 
+                       Content="{Binding BindWeather.Country, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Foreground="Red" 
+                       Content="{Binding BindWeather.Temp, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </DockPanel>
         <!--<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
@@ -69,7 +75,7 @@
                        Content="{Binding WindSpeed, UpdateSourceTrigger=PropertyChanged}"></Label>
             </StackPanel>
         </DockPanel>-->
-        <ListBox HorizontalContentAlignment="Left"
+        <ListBox HorizontalContentAlignment="Stretch"
             ItemTemplate="{StaticResource weatherItem}"
             ItemsSource="{Binding WeatherList}" Background="{x:Null}" BorderBrush="{x:Null}">
         </ListBox>

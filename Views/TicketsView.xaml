@@ -13,7 +13,9 @@
             <TextBox Text="{Binding PathPDF}"></TextBox>
         </UniformGrid>
         <UniformGrid DockPanel.Dock="Bottom">
-            <Button Content="Back" Command="{Binding BackCommand}"></Button>
+            <Button Content="Back" 
+                    Style="{StaticResource InformButton}"
+                    Command="{Binding BackCommand}"></Button>
         </UniformGrid>
         <WebBrowser Source="{Binding PathPDF}"></WebBrowser>
     </DockPanel>

@@ -5,16 +5,22 @@
              xmlns:vm="clr-namespace:TravelApp.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
+             xmlns:ns="clr-namespace:TravelApp.ViewModels"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:TicketsPDFViewModel}"
              d:DesignHeight="450" d:DesignWidth="300">
     <DockPanel>
-        <UniformGrid DockPanel.Dock="Top">
-            <TextBox Text="{Binding PathPDF}"></TextBox>
-        </UniformGrid>
+        <StackPanel DockPanel.Dock="Top">
+            <TextBox Text="{Binding PathPDF}"/>
+            <Button Content="Click" 
+                    Style="{StaticResource InformButton}"
+                    Command="{Binding ClickCommand}"/>
+        </StackPanel>
         <UniformGrid DockPanel.Dock="Bottom">
-            <Button Content="Back" Command="{Binding BackCommand}"></Button>
+            <Button Content="Back"
+                    Style="{StaticResource InformButton}"
+                    Command="{Binding BackCommand}"/>
         </UniformGrid>
-        <!--<WebBrowser Source="{Binding PathPDF}"></WebBrowser>-->
+        <WebBrowser ns:WebBrowserUtility.BindableSource="{Binding PathPDF}"/>
     </DockPanel>
 </UserControl>

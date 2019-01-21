@@ -17,7 +17,7 @@ namespace TravelApp.ViewModels
     {
         private readonly IMyNavigationService navigation;
 
-        private Uri introVideo;  //C:\Users\User\source\repos\TravelApp\Resources\IntroPhone.avi
+        private Uri introVideo;
         public Uri IntroVideo { get => introVideo; set => Set(ref introVideo, value); }
 
         private TimeSpan introVideoPosition;
@@ -34,16 +34,14 @@ namespace TravelApp.ViewModels
             timer.Start();
 
             var directory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            IntroVideo = new Uri(directory + @"\Resources\IntroPhone.avi", UriKind.Absolute);
-            //thePlayer.Source = new Uri(@"C:\Movies\Arthur Christmas.avi", UriKind.Absolute);
-            //thePlayer.Play();
+            IntroVideo = new Uri(directory + @"\Resources\CutIntroMobile.avi", UriKind.Absolute);
         }
 
         void timer_Tick(object sender, EventArgs e)
         {
             Task.Run(() =>
             {
-                Thread.Sleep(13700);
+                Thread.Sleep(6650);
                 navigation.Navigate<LogInViewModel>();
             });
             timer.Stop();

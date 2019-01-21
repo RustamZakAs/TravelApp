@@ -24,7 +24,18 @@ namespace TravelApp.Models
 
         public Trip()
         {
+            Name = "";
+            CityInfo = new ObservableCollection<CityInfo>();
+            CityImage = @"/Resources/empty_image.png";
+            Note = "";
+        }
 
+        public Trip(string _Name)
+        {
+            Name = _Name;
+            CityInfo = new ObservableCollection<CityInfo>();
+            CityImage = @"/Resources/empty_image.png";
+            Note = "";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

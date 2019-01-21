@@ -14,6 +14,9 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+
         private string pathPDF = @"C:\Users\User\source\repos\TravelApp\Resources\dypexamarea.pdf";
         public string PathPDF { get => pathPDF; set => Set(ref pathPDF, value); }
 
@@ -35,7 +38,7 @@ namespace TravelApp.ViewModels
             get => backCommand ?? (backCommand = new RelayCommand(
                 () =>
                 {
-                    navigation.Navigate<MenyuViewModel>();
+                    navigation.Navigate(Back.GetType());
                 }
                 ));
         }

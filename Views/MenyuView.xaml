@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:TripsViewModel}"
              d:DesignHeight="450" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
@@ -47,10 +48,10 @@
                         Content="/TravelApp;component/Resources/cityes.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
                 <Button Height="100" Width="100" Command="{Binding TicketsPDFCommand}"
-                        Content="/TravelApp;component/Resources/empty_user.png" 
+                        Content="/TravelApp;component/Resources/TicketPdf.jpg" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
-                <Button Height="100" Width="100" 
-                        Content="/TravelApp;component/Resources/empty_user.png" 
+                <Button Height="100" Width="100"  Command="{Binding MapCommand}"
+                        Content="/TravelApp;component/Resources/Map.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
                 <Button Height="100" Width="100" 
                         Content="/TravelApp;component/Resources/empty_user.png" 

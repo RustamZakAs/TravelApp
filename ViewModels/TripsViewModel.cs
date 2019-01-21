@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Forms;
 using TravelApp.Messages;
 using TravelApp.Models;
 using TravelApp.Services;
@@ -19,24 +19,26 @@ namespace TravelApp.ViewModels
         private string userNick;
         public string UserNick { get => userNick; set => Set(ref userNick, value); }
 
-        private ObservableCollection<Trip> tripList = new ObservableCollection<Trip>();
+        private ObservableCollection<Trip> tripList;
         public ObservableCollection<Trip> TripList { get => tripList; set => Set(ref tripList, value); }
 
-        private Trip selectedTrip = new Trip();
+        private Trip selectedTrip;
         public Trip SelectedTrip { get => selectedTrip; set => Set(ref selectedTrip, value); }
+
+        private CityInfo selectedCity;
+        public CityInfo SelectedCity { get => selectedCity; set => Set(ref selectedCity, value); }
 
         private CityInfo inCityInfo;
         public CityInfo InCityInfo { get => inCityInfo; set => Set(ref inCityInfo, value); }
 
-        //private ViewModelBase back;
-        //public ViewModelBase Back { get => back; set => Set(ref back, value); }
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
         private readonly IMyNavigationService navigation;
 
         //public TripsViewModel(IMyNavigationService navigation)
         //{
         //    this.navigation = navigation;
-
         //    Messenger.Default.Register<CityInfo>(this,
         //        msg =>
         //        {
@@ -46,7 +48,6 @@ namespace TravelApp.ViewModels
         //                TripList[TripList.Count - 1].CityInfo.Add(msg);
         //                TripList[TripList.Count - 1].Name = (TripList.Count - 1).ToString();
         //            }
-
         //        });
 
         //    Messenger.Default.Register<MenyuMessage>(this,
@@ -60,18 +61,15 @@ namespace TravelApp.ViewModels
         {
             this.navigation = navigation;
 
-            Messenger.Default.Register<TripsMessage>(this,
-                msg =>
-                {
-                    UserNick = msg.UserNick;
-                });
+            TripList = new ObservableCollection<Trip>();
 
             Messenger.Default.Register<NotificationMessage<CityInfo>>(this, OnHitIt);
 
-            Messenger.Default.Register<MenyuMessage>(this,
+            Messenger.Default.Register<TripsMessage>(this,
                msg =>
                {
                    UserNick = msg.UserNick;
+                   Back = msg.Back;
                });
         }
 
@@ -80,9 +78,17 @@ namespace TravelApp.ViewModels
             if (nc.Notification == "SelectCity")
             {
                 var tr = nc.Content;
-                if (TripList[TripList.Count - 1].CityInfo == null)
-                    TripList[TripList.Count - 1].CityInfo = new ObservableCollection<CityInfo>();
-                TripList[TripList.Count - 1].CityInfo.Add(tr);
+                //SelectedTrip = TripList[TripList.Count - 1];
+                if (SelectedTrip.CityInfo == null)
+                    SelectedTrip.CityInfo = new ObservableCollection<CityInfo>();
+                SelectedTrip.CityInfo.Add(tr);
+
+                //if (tr != null)
+                //{
+                //    //TripList.Where(x => x == this.SelectedTrip).First().CityInfo.Add(tr);
+                //    var z = (ObservableCollection<Trip>)TripList.Where(x => x == this.SelectedTrip);
+                //    z[0].CityInfo.Add(tr);
+                //}
             }
         }
 
@@ -92,32 +98,56 @@ namespace TravelApp.ViewModels
             get => backCommand ?? (backCommand = new RelayCommand(
                  () =>
                  {
-                     navigation.Navigate<MenyuViewModel>();
+                     navigation?.Navigate(Back.GetType());
                  }
                  ));
         }
 
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        private MyRelayCommand addTripCommand;
+        public MyRelayCommand AddTripCommand
         {
-            get => addCommand ?? (addCommand = new RelayCommand(
-                 () =>
+            get => addTripCommand ?? (addTripCommand = new MyRelayCommand(
+                 param =>
                  {
-                     TripList.Add(new Trip());
-                     navigation.Navigate<CitiesViewModel>();
-                     if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null) MessageBox.Show(SelectedTrip.CityInfo[0].name);
+                     //var task = param as Trip;
+                     string s = String.Format(@"Trip {0}",TripList.Count + 1);
+                     TripList.Add(new Trip(s));
+                     
+
+                     //navigation.Navigate<CitiesViewModel>();
+                     //if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null) MessageBox.Show(SelectedTrip.CityInfo[0].name);
                  }
                  ));
         }
 
-        private RelayCommand removeCommand;
-        public RelayCommand RemoveCommand
+        private MyRelayCommand removeTripCommand;
+        public MyRelayCommand RemoveTripCommand
         {
-            get => removeCommand ?? (removeCommand = new RelayCommand(
-                 () =>
+            get => removeTripCommand ?? (removeTripCommand = new MyRelayCommand(
+                 param =>
                  {
-                     navigation.Navigate<MenyuViewModel>();
+                     if (System.Windows.MessageBox.Show("Remove \""+ SelectedTrip.Name + "\" Trip?", "Travel Application", 
+                                                             System.Windows.MessageBoxButton.YesNo,
+                                                             System.Windows.MessageBoxImage.Warning) == System.Windows.MessageBoxResult.Yes)
+                     {
+                         TripList.Remove(SelectedTrip);
+                     }
+                     
+                     //navigation.Navigate<MenyuViewModel>();
                  }
+                 ,param => (SelectedTrip != null)
+                 ));
+        }
+
+        private MyRelayCommand saveCommand;
+        public MyRelayCommand SaveCommand
+        {
+            get => saveCommand ?? (saveCommand = new MyRelayCommand(
+                 param =>
+                 {
+                     
+                 },
+                 param => (true)
                  ));
         }
 
@@ -138,7 +168,11 @@ namespace TravelApp.ViewModels
             get => weatherCommand ?? (weatherCommand = new RelayCommand(
                  () =>
                  {
-                     navigation.Navigate<WeatherViewModel>();
+                     if (SelectedCity != null && !String.IsNullOrWhiteSpace(SelectedCity.name))
+                     {
+                         Messenger.Default.Send(new WeatherMessage { UserNick = UserNick, City = SelectedCity.name, Back = this });
+                         navigation.Navigate<WeatherViewModel>();
+                     }
                  }
                  ));
         }
@@ -164,7 +198,55 @@ namespace TravelApp.ViewModels
                  }
                  ));
         }
+
         
+        private MyRelayCommand addCityCommand;
+        public MyRelayCommand AddCityCommand
+        {
+            get => addCityCommand ?? (addCityCommand = new MyRelayCommand(
+                 param =>
+                 {
+                     SelectedTrip = param as Trip;
+                     //TripList.Where(x => x == this.selectedTrip).First().CityInfo.Add(new CityInfo());
+                     //var selectedTrip = 
+                     //var selectedCity = selectedTrip.CityInfo.Where(x => x == this.SelectedCity).First();
+                     //selectedTrip.CityInfo.Add(new CityInfo());
+                     navigation.Navigate<CitiesViewModel>();
+                     //if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null)
+                     //    MessageBox.Show(SelectedTrip.CityInfo[0].name);
+                 }
+                 ));
+        }
+        
+        private MyRelayCommand removeCityCommand;
+        public MyRelayCommand RemoveCityCommand
+        {
+            get => removeCityCommand ?? (removeCityCommand = new MyRelayCommand(
+                 param =>
+                 {
+                     SelectedTrip = param as Trip;
+                     if (SelectedCity != null)
+                     {
+                         string str = String.Format(@"Remove from '{0}' - '{1}' city?", SelectedTrip.Name, SelectedCity.name);
+                         if (System.Windows.MessageBox.Show(str, "Travel Application",
+                                                             System.Windows.MessageBoxButton.YesNo,
+                                                             System.Windows.MessageBoxImage.Warning) == System.Windows.MessageBoxResult.Yes)
+                         {
+                             TripList.Where(x => x == this.SelectedTrip).First().CityInfo.Remove(SelectedCity);
+                         }
+                     }
+                     //TripList.Where(x => x == SelectedTrip); 
+                     //TripList.Where(x => x == this.selectedTrip).First().CityInfo.Where(y => y == this.SelectedCity);
+                     //TripList.Re
+                     //var selectedTrip = 
+                     //var selectedCity = selectedTrip.CityInfo.Where(x => x == this.SelectedCity).First();
+                     //selectedTrip.CityInfo.Add(new CityInfo());
+                     //navigation.Navigate<CitiesViewModel>();
+                     //if (SelectedTrip.CityInfo != null && SelectedTrip.CityInfo[0] != null)
+                     //    MessageBox.Show(SelectedTrip.CityInfo[0].name);
+                 }
+                 ));
+        }
 
         public override string ToString()
         {

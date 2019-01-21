@@ -36,8 +36,8 @@ namespace TravelApp.ViewModels
         private Registration _regInfo = new Registration();
         public Registration RegInfo { get => _regInfo; set => Set(ref _regInfo, value); }
 
-        //private ViewModelBase back;
-        //public ViewModelBase Back { get => back; set => Set(ref back, value); }
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
         private readonly IMyNavigationService navigation;
 
@@ -60,11 +60,11 @@ namespace TravelApp.ViewModels
         public RelayCommand BackCommand
         {
             get => backCommand ?? (backCommand = new RelayCommand(
-                 () =>
-                 {
-                     navigation.Navigate<LogInViewModel>();
-                 }
-                 ));
+                () =>
+                {
+                    navigation.Navigate(Back.GetType());
+                }
+                ));
         }
 
         private MyRelayCommand saveCommand;

@@ -34,8 +34,17 @@
                     </ThicknessAnimationUsingKeyFrames>
                   </Storyboard>
                 </VisualState>
-                <VisualState x:Name="Disabled"/>
-              </VisualStateGroup>
+                <VisualState x:Name="Disabled">
+                  <Storyboard>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="rectangle">
+                      <EasingColorKeyFrame KeyTime="0" Value="Gray"/>
+                    </ColorAnimationUsingKeyFrames>
+                    <!--<ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="image">
+                      <EasingThicknessKeyFrame KeyTime="0" Value="1,1,0,0"/>
+                    </ThicknessAnimationUsingKeyFrames>-->
+                  </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Grid>
               <Rectangle x:Name="rectangle" Margin="0" Stroke="#99FFFFFF" RadiusY="1" RadiusX="1" OpacityMask="{x:Null}" Fill="#00000000"/>

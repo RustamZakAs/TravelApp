@@ -22,8 +22,8 @@ namespace TravelApp.ViewModels
         private string userImage = "/TravelApp;component/Resources/empty_user.png";
         public string UserImage { get => userImage; set => Set(ref userImage, value); }
         
-        //private ViewModelBase back;
-        //public ViewModelBase Back { get => back; set => Set(ref back, value); }
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
 
         private readonly IMyNavigationService navigation;
 
@@ -40,7 +40,8 @@ namespace TravelApp.ViewModels
             get => sendCommand ?? (sendCommand = new RelayCommand(
                 () =>
                 {
-                    Messenger.Default.Send(new MenyuMessage { UserNick = UserNick });
+                    Messenger.Default.Send(new MenyuMessage { UserNick = UserNick, Back = this });
+
                     navigation.Navigate<MenyuViewModel>();
 
                     Task.Run(() =>

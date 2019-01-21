@@ -16,6 +16,12 @@ namespace TravelApp.ViewModels
 {
     class CitiesViewModel : ViewModelBase
     {
+        private string userNick;
+        public string UserNick { get => userNick; set => Set(ref userNick, value); }
+
+        private ViewModelBase back;
+        public ViewModelBase Back { get => back; set => Set(ref back, value); }
+
         private ObservableCollection<CityInfo> cityList;
         public ObservableCollection<CityInfo> CityList { get => cityList; set => Set(ref cityList, value); }
 
@@ -60,7 +66,7 @@ namespace TravelApp.ViewModels
             set
             {
                 Set(ref searchText, value);
-                SearchCityList = MySearch(CityList, value, true);
+                SearchCityList = MySearch(CityList, value, false);
             }
         }
 
@@ -74,6 +80,13 @@ namespace TravelApp.ViewModels
             City city = new City();
             SearchCityList = CityList = city.CityList;
             //MessageBox.Show(CityList[1].name);
+
+            Messenger.Default.Register<CityMessage>(this,
+              msg =>
+              {
+                  UserNick = msg.UserNick;
+                  Back = msg.Back;
+              });
         }
 
         private ObservableCollection<CityInfo> MySearch(ObservableCollection<CityInfo> cities, string value, bool isMany = false)
@@ -101,9 +114,13 @@ namespace TravelApp.ViewModels
                 else
                 {
                     var linqResults = from city in cities
-                                      where city.country.Contains(value) ||
-                                      city.name.Contains(value)
+                                      where city.country.ToLower().Contains(value.ToString()) ||
+                                      city.name.ToLower().Contains(value.ToLower())
                                       select city;
+                    //var linqResults = from city in cities
+                    //                  where city.country.Contains(value) ||
+                    //                  city.name.Contains(value)
+                    //                  select city;
                     return new ObservableCollection<CityInfo>(linqResults);
                 }
             }
@@ -114,11 +131,11 @@ namespace TravelApp.ViewModels
         public RelayCommand BackCommand
         {
             get => backCommand ?? (backCommand = new RelayCommand(
-                 () =>
-                 {
-                     navigation.Navigate<MenyuViewModel>();
-                 }
-                 ));
+                () =>
+                {
+                    navigation.Navigate(Back.GetType());
+                }
+                ));
         }
 
         private RelayCommand selectCommand;

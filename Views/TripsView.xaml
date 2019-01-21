@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TravelApp.Views"
              mc:Ignorable="d" 
+             Name="Main"
              d:DataContext="{d:DesignInstance vm:TripsViewModel}"
              d:DesignHeight="450" d:DesignWidth="650">
     <DockPanel>
@@ -19,15 +20,25 @@
         </StackPanel>
         <UniformGrid DockPanel.Dock="Bottom">
             <!--<Button Content="Back" Command="{Binding BackCommand}"/>-->
-            <UniformGrid Grid.Column="2" Grid.Row="3">
-                <Button IsDefault="True" 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <UniformGrid Grid.Column="2" Grid.Row="3">
+                    <Button IsDefault="True" 
                         Style="{StaticResource InformButton}" 
                         Content="Back" 
                         Command="{Binding BackCommand}"/>
-            </UniformGrid>
+                </UniformGrid>
+            </Grid>
         </UniformGrid>
-        <UniformGrid Columns="1" Rows="1" Background="Black">
-            <Grid ShowGridLines="True">
+        <UniformGrid Columns="1" Rows="1">
+            <Grid ShowGridLines="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="72"/>
                     <RowDefinition/>
@@ -40,26 +51,27 @@
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" 
                         VerticalAlignment="Top" Height="70" 
-                        Command="{Binding AddCommand}" 
+                        Command="{Binding AddTripCommand}" 
                         Content="/TravelApp;component/Resources/Plus.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
                 <Button Grid.Column="1" Grid.Row="0" 
                         VerticalAlignment="Top" Height="70" 
-                        Command="{Binding RemoveCommand}" 
+                        Command="{Binding RemoveTripCommand}" 
                         Content="/TravelApp;component/Resources/Remove.png" 
                         Style="{DynamicResource SuperBarButtonStyle}"/>
-                <Button Grid.Column="2" Grid.Row="0" 
+                <!--<Button Grid.Column="2" Grid.Row="0" 
                         VerticalAlignment="Top" Height="70" 
                         Command="{Binding OkCommand}" 
                         Content="/TravelApp;component/Resources/Ok.png" 
-                        Style="{DynamicResource SuperBarButtonStyle}"/>
+                        Style="{DynamicResource SuperBarButtonStyle}"/>-->
                 <ListBox Grid.Column="0" Grid.Row="1" 
                          Grid.ColumnSpan="3" Grid.RowSpan="2"
+                         HorizontalContentAlignment="Stretch"
                          ItemsSource="{Binding TripList}"
-                         SelectedItem="{Binding Path=SelectedTrip}" Background="Yellow">
+                         SelectedItem="{Binding SelectedTrip}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid ShowGridLines="True">
+                            <Grid ShowGridLines="False">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition/>
@@ -71,43 +83,61 @@
                                     <ColumnDefinition Width="5*"/>
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
-                                <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="Coral">
+                                <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
                                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                        <!--<Button Command="{Binding DataContext.AddCityCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+                                        <Button Command="{Binding DataContext.RemoveCityCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />-->
                                         <Button Height="27" Width="27"
-                                                        Command="{Binding AddCityCommand}" 
-                                                        Content="/TravelApp;component/Resources/Plus.png" 
-                                                        Style="{DynamicResource SuperBarButtonStyle}"/>
+                                                Content="/TravelApp;component/Resources/Plus.png" 
+                                                Command="{Binding DataContext.AddCityCommand, ElementName=Main}"
+                                                CommandParameter="{Binding .}"
+                                                Style="{DynamicResource SuperBarButtonStyle}"/>
+                                                <!--Command="{Binding DataContext.AddCityCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"-->
                                         <Button Height="27" Width="27"
-                                                        Command="{Binding RemoveCityCommand}" 
-                                                        Content="/TravelApp;component/Resources/Remove.png" 
-                                                        Style="{DynamicResource SuperBarButtonStyle}"/>
+                                                Command="{Binding DataContext.RemoveCityCommand, ElementName=Main}"
+                                                CommandParameter="{Binding .}"
+                                                Content="/TravelApp;component/Resources/Remove.png" 
+                                                Style="{DynamicResource SuperBarButtonStyle}"/>
                                     </StackPanel>
+                                                <!--Command="{Binding DataContext.RemoveCityCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"-->
                                     <TextBlock Text="Name: "/>
                                     <TextBox Text="{Binding Name}" FontWeight="Bold"/>
                                 </DockPanel>
                                 <ListBox ItemsSource="{Binding CityInfo}" 
-                                             Background="Green"
-                                             Grid.Column="0" Grid.Row="1" 
-                                             Grid.ColumnSpan="3" 
-                                             Grid.RowSpan="3">
+                                         SelectedItem="{Binding DataContext.SelectedCity, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                         HorizontalContentAlignment="Stretch"
+                                         Grid.Column="0" Grid.Row="1" 
+                                         Grid.ColumnSpan="3" 
+                                         Grid.RowSpan="3">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <DockPanel Background="Red" Width="605">
+                                            <DockPanel>
                                                 <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="24">
-                                                    <Button Foreground="Blue" Height="24" Command="{Binding WeatherCommand}">
-                                                        <Button.Background>
+                                                    <Button Height="24" 
+                                                            Command="{Binding DataContext.WeatherCommand, ElementName=Main}"
+                                                            CommandParameter="{Binding .}">
+                                                            <!--Command="{Binding DataContext.WeatherCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"-->
+                                                        <!--Command="{Binding WeatherCommand, ElementName=This}"-->
+                                                            <Image Source="/TravelApp;component/Resources/Weather_icons_grey.png"></Image>
+                                                        <!--<Button.Background>
                                                             <ImageBrush ImageSource="/TravelApp;component/Resources/Weather_icons_grey.png"/>
-                                                        </Button.Background>
+                                                        </Button.Background>-->
                                                     </Button>
-                                                    <Button Foreground="Blue" Height="24" Command="{Binding MapCommand}">
-                                                        <Button.Background>
+                                                    <Button Height="24" 
+                                                            Command="{Binding DataContext.MapCommand, ElementName=Main}"
+                                                            CommandParameter="{Binding .}">
+                                                        <Image Source="/TravelApp;component/Resources/point_marker.png"></Image>
+                                                        <!--<Button.Background>
                                                             <ImageBrush ImageSource="/TravelApp;component/Resources/point_marker.png"/>
-                                                        </Button.Background>
+                                                        </Button.Background>-->
                                                     </Button>
-                                                    <Button Foreground="Blue" Height="24" Command="{Binding SearchInfoCommand}">
-                                                        <Button.Background>
+                                                    <Button Height="24" 
+                                                            Command="{Binding DataContext.SearchInfoCommand, ElementName=Main}"
+                                                            CommandParameter="{Binding .}">
+                                                        <Image Source="/TravelApp;component/Resources/Infobox_info_icon.png"></Image>
+                                                        <!--<Button.Background>
                                                             <ImageBrush ImageSource="/TravelApp;component/Resources/Infobox_info_icon.png"/>
-                                                        </Button.Background>
+                                                        </Button.Background>-->
                                                     </Button>
                                                 </StackPanel>
                                                 <Image DockPanel.Dock="Right" Height="70" Source="{Binding imageWeb}"></Image>

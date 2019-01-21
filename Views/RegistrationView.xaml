@@ -36,8 +36,12 @@
         <TextBox FontSize="17" Background="Red" 
                  Text="{Binding RegInfo.UserEmail, UpdateSourceTrigger=PropertyChanged}"/>
         <UniformGrid Columns="2" Rows="1">
-            <Button FontSize="14" Content="Save" Command="{Binding SaveCommand}"/>
-            <Button FontSize="14" Content="Back" Command="{Binding BackCommand}"/>
+            <Button FontSize="14" Content="Save"
+                    Style="{StaticResource InformButton}"
+                    Command="{Binding SaveCommand}"/>
+            <Button FontSize="14" Content="Back" 
+                    Style="{StaticResource InformButton}"
+                    Command="{Binding BackCommand}"/>
         </UniformGrid>
     </StackPanel>
 </UserControl>

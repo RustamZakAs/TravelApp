@@ -34,12 +34,15 @@
         <UniformGrid Columns="3" Rows="1">
             <Button FontSize="14" Content="OK" 
                     Command="{Binding SendCommand}" 
+                    Style="{StaticResource InformButton}"
                     CommandParameter="Menyu"/>
             <Button FontSize="14" Content="Registration" 
                     Command="{Binding RegistrationCommand}" 
+                    Style="{StaticResource InformButton}"
                     CommandParameter="{x:Type vm:RegistrationViewModel}"/>
             <Button FontSize="14" Content="Close" 
                     Command="{Binding CloseCommand}" 
+                    Style="{StaticResource InformButton}"
                     CommandParameter="Close"/>
         </UniformGrid>
     </StackPanel>

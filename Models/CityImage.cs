@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -48,10 +49,20 @@ namespace TravelApp.Models
             public string web { get; set; }
         }
 
-        public class Root
+        public class Root : INotifyPropertyChanged
         {
-            public _links _links { get; set; }
-            public List<photos> photos { get; set; }
+            private _links __links;
+            public _links _links { get => __links; set => Set(ref __links, value); }
+
+            private List<photos> _photos;
+            public List<photos> photos { get => _photos; set => Set(ref _photos, value); }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void Set<T>(ref T field, T value, [System.Runtime.CompilerServices.CallerMemberName]string prop = "")
+            {
+                field = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            }
         }
 
         public CityImage.Root GetImages(string city)
