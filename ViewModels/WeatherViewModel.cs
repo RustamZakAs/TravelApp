@@ -42,15 +42,16 @@ namespace TravelApp.ViewModels
                {
                    UserNick = msg.UserNick;
                    City = msg.City;
-                   if (City != null && City.Length > 0)
+                   if (City == null || City.Length == 0)
                    {
-                       if (this.WeatherOkCommand.CanExecute(null))
-                           this.WeatherOkCommand.Execute(null);
+                       if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) //если есть интернет
+                           City = Ip.GetUserCountryByIp().City;
                    }
+                   if (this.WeatherOkCommand.CanExecute(null))
+                       this.WeatherOkCommand.Execute(null);
                    Back = msg.Back;
                });
             //City = Ip.GetUserCountryByIp(Ip.GetIP());
-            City = Ip.GetUserCountryByIp().City;
             ViewWeather(City);
         }
 

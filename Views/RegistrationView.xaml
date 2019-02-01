@@ -8,6 +8,16 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:RegistrationViewModel}"
              d:DesignHeight="450" d:DesignWidth="300">
+    <Control.Resources>
+        <ControlTemplate x:Key="validationFailed">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="Violet" BorderThickness="2">
+                    <AdornedElementPlaceholder />
+                </Border>
+                <TextBlock Foreground="Red" FontSize="26" FontWeight="Bold">!</TextBlock>
+            </StackPanel>
+        </ControlTemplate>
+    </Control.Resources>
     <StackPanel>
         <Label Content="Form of appeal:"/>
         <Label Content="{Binding Test}"/>
@@ -17,11 +27,14 @@
                   SelectedValue="{Binding RegInfo.Appeal}"/>
         <Label Content="Name:"/>
         <Label Content="{Binding Test}"/>
-        <TextBox FontSize="17" Background="Red" 
-                 Text="{Binding RegInfo.UserName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox FontSize="17"
+                 Validation.ErrorTemplate="{StaticResource validationFailed}"
+                 Text="{Binding RegInfo.UserName, UpdateSourceTrigger=PropertyChanged}">
+        </TextBox>
         <Label Content="Surname:"/>
         <Label Content="{Binding Test}"/>
-        <TextBox FontSize="17" Background="Red" 
+        <TextBox FontSize="17" 
+                 Validation.ErrorTemplate="{StaticResource validationFailed}"
                  Text="{Binding RegInfo.UserSurname, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Surname:"/>
         <Label Content="{Binding Test}"/>

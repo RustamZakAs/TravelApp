@@ -25,7 +25,7 @@ namespace TravelApp.ViewModels
 
         DispatcherTimer timer = new DispatcherTimer();
 
-        int introTime = 1;//6650;
+        int introTime = /*1;*/6650;
 
         public IntroViewModel(IMyNavigationService navigation)
         {
